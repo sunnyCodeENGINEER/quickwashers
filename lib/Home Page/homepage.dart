@@ -24,10 +24,13 @@ class HomePage extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.grey[200],
                 prefixIcon: const Icon(Icons.search),
                 hintText: 'Search Laundry Store',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(40.0),
+                  borderSide: const BorderSide(color:  Color.fromARGB(255, 176, 176, 176), width: 2.0),
                 ),
               ),
             ),
