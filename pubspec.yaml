@@ -76,10 +76,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: HvDTrialBrandonText
-      fonts:
-        - asset: assets/fonts/HvDTrial_Brandon_Text_Regular-BF6514e9eb617a0.otf
+  # fonts:
+  #   - family: HvDTrialBrandonText
+  #     fonts:
+  #       - asset: assets/fonts/HvDTrial_Brandon_Text_Regular-BF6514e9eb617a0.otf
         # - asset: assets/fonts/HvDTrialBrandonText-Bold.ttf
         #   weight: 700
         # - asset: assets/fonts/HvDTrialBrandonText-Italic.ttf
@@ -95,6 +95,37 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: HvDTrialBrandonText
+      fonts:
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Black.otf
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Black_Italic.otf
+          style: italic
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Bold.otf
+          weight: 700
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Bold_Italic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Light.otf
+          weight: 300
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Light_Italic.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Medium.otf
+          weight: 500
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Medium_Italic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Regular.otf
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Regular_Italic.otf
+          style: italic
+        - asset: assets/fonts/HvDTrial_Brandon_Text_Thin.otf
+          weight: 100
+        - asset: assets/fonts/HvDTrial_brandon_Text_Thin_Italic.otf
+          weight: 100
+          style: italic
+
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
