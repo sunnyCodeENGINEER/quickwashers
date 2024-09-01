@@ -11,25 +11,23 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        title: Row(
+          children: [Spacer(), const Text('Welcome Back'), Spacer()],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            const Text('Welcome Back'),
             const SizedBox(height: 20),
-            Container(
-              height: 150,
-              color: Colors.blue.shade100,
-              child: const Center(
-                  child: Text('Image Placeholder',
-                      style: TextStyle(color: Colors.white))),
+            SizedBox(
+              height: 192,
+              child: Center(
+                child: Image.asset('assets/images/LOGIN PAGE IMAGE.png'),
+              ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'LOGIN',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
@@ -49,16 +47,28 @@ class LoginPage extends StatelessWidget {
                         builder: (context) => OTPVerificationPage()));
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
+
+                  // minimumSize: const Size(double.infinity, 50),
+                  ),
+              child: const Text(
+                'Continue',
+                style: TextStyle(color: Colors.white),
               ),
-              child: const Text('Continue'),
             ),
             const SizedBox(height: 20),
             const Text('Or use socials', style: TextStyle(color: Colors.grey)),
             const SizedBox(height: 10),
-            _buildSocialLoginButton('Facebook', Colors.blue),
-            _buildSocialLoginButton('Google', Colors.red),
-            _buildSocialLoginButton('Apple', Colors.black),
+            // CustomSocialButton('Facebook', Colors.blue),
+            const CustomSocialButton(
+                foregroundColor: Colors.black,
+                backgroundColor: Color.fromARGB(255, 238, 238, 238),
+                label: "Google",
+                destination: Placeholder()),
+            const CustomSocialButton(
+                foregroundColor: Colors.black,
+                backgroundColor: Color.fromARGB(255, 238, 238, 238),
+                label: "Apple",
+                destination: Placeholder()),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
@@ -78,19 +88,37 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildSocialLoginButton(String text, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton.icon(
-        onPressed: () {},
-        icon: const Icon(Icons.login, color: Colors.white),
-        label: Text(text),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          minimumSize: const Size(double.infinity, 50),
-        ),
+class CustomSocialButton extends StatelessWidget {
+  final Color foregroundColor;
+  final Color backgroundColor;
+  final String label;
+  final Widget destination;
+
+  const CustomSocialButton({
+    Key? key,
+    required this.foregroundColor,
+    required this.backgroundColor,
+    required this.label,
+    required this.destination,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
       ),
+      child: SizedBox(width: 206, child: Center(child: Text(label))),
     );
   }
 }

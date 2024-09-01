@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/homepage.dart';
+import 'package:quickwashers/Login%20PAge/forgot_password_page.dart';
+
 import 'package:quickwashers/Splash%20Screen/splashscreen.dart';
 
 void main() {
@@ -32,8 +34,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        fontFamily: 'HvDTrialBrandonText'
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: ForgotPasswordPage(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
