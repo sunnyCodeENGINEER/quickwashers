@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:quickwashers/Confirm%20Order/confirm_order_page.dart';
 import 'package:quickwashers/Home%20Page/servicespage.dart';
 import 'package:quickwashers/Offer%20Page/offerpage.dart';
 
@@ -27,7 +28,20 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         actions: [
           SizedBox(
-              width: 24, child: Image.asset('assets/images/cart Icon.png')),
+              width: 24,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      (context),
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmOrderPage(),
+                      ),
+                    );
+                  },
+                  icon: Image.asset(
+                    'assets/images/cart Icon.png',
+                    fit: BoxFit.fill,
+                  ))),
           const SizedBox(width: 20),
         ],
       ),
@@ -36,28 +50,17 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(40)),
-              child: TextField(
-                decoration: InputDecoration(
-                  icon: SizedBox(
-                    width: 20,
-                    child: Image.asset('assets/images/search.png'),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  // prefixIcon: const Icon(Icons.search),
-                  hintText: 'Search Laundry Store',
-
-                  // border: OutlineInputBorder(
-                  //   borderRadius: BorderRadius.circular(40.0),
-                  //   // borderSide: const BorderSide(
-                  //   //     color: Color.fromARGB(255, 176, 176, 176), width: 2.0),
-                  // ),
+            TextField(
+              decoration: InputDecoration(
+                prefixIconColor: Colors.grey,
+                filled: true,
+                fillColor: Colors.grey[200],
+                prefixIcon: const Icon(Icons.search),
+                hintText: 'Search Offer',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(40.0),
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 176, 176, 176), width: 2.0),
                 ),
               ),
             ),
@@ -73,7 +76,6 @@ class HomePage extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      print('tapped');
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
@@ -84,7 +86,6 @@ class HomePage extends StatelessWidget {
                         image: 'assets/images/Laundry.png')),
                 GestureDetector(
                   onTap: () {
-                    print('tapped');
                     Navigator.push(
                         (context),
                         MaterialPageRoute(
@@ -96,7 +97,6 @@ class HomePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print('tapped');
                     Navigator.push(
                         (context),
                         MaterialPageRoute(
@@ -108,7 +108,6 @@ class HomePage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print('tapped');
                     Navigator.push(
                         (context),
                         MaterialPageRoute(
@@ -145,17 +144,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            Container(
-              height: 100,
-              color: Colors.blue,
-              child: const Center(
-                child: Text(
-                  'Flat 50% off on First Order',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            OurOffersTile(),
           ],
         ),
       ),
@@ -174,6 +163,57 @@ class HomePage extends StatelessWidget {
     return ServiceTile(
       title: title,
       image: image,
+    );
+  }
+}
+
+class OurOffersTile extends StatelessWidget {
+  const OurOffersTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      height: 100,
+      width: 260,
+      // color: Colors.blue,
+      child: Center(
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              child: Column(
+                children: [
+                  const Text(
+                    'Flat 50% off on First Order',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'View all offers',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset('assets/images/Vector.png')
+                    ],
+                  )
+                ],
+              ),
+            ),
+            const Spacer(),
+            Image.asset('assets/images/Washing machine.png')
+          ],
+        ),
+      ),
     );
   }
 }

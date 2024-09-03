@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'HvDTrialBrandonText'
       ),
       // home: const SplashScreen(),
-      home: ForgotPasswordPage(),
+      home: const SplashScreen(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }

@@ -24,27 +24,81 @@ class OfferPage extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
+                prefixIconColor: Colors.grey,
                 filled: true,
                 fillColor: Colors.grey[200],
                 prefixIcon: const Icon(Icons.search),
                 hintText: 'Search Offer',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(40.0),
-                  borderSide: const BorderSide(color:  Color.fromARGB(255, 176, 176, 176), width: 2.0),
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 176, 176, 176), width: 2.0),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            Container(
-              height: 100,
-              color: Colors.blue,
-              child: const Center(
-                child: Text(
-                  'Flat 50% off on First Order',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+            Stack(
+              children: [
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.symmetric(vertical: 40),
+                    height: 135,
+                    width: 380,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue,
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Positioned(
+                              child: SizedBox(
+                                width: 150,
+                                child: Text(
+                                  'Flat 50% off on First Order',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 20),
+                                  foregroundColor: Colors.blue),
+                              child: const Text('Order'),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        // SizedBox(
+                        //   height: 180,
+                        //   child: Image.asset(
+                        //     'assets/images/Laundry.png',
+                        //     fit: BoxFit.fitHeight,
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 10,
+                  right: 40,
+                  child: SizedBox(
+                    width: 140,
+                    child: Image.asset(
+                      'assets/images/Laundry.png',
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                )
+              ],
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -77,14 +131,42 @@ class OfferPage extends StatelessWidget {
   Widget _buildOfferTile() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blue.shade200,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(offset: Offset(2, 2), color: Colors.grey.shade200)
+        ],
       ),
-      child: const Center(
-        child: Text(
-          'Flat 50% off on First Order',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+          child: Column(
+            children: [
+              const Spacer(),
+              Image.asset('assets/images/Washing machine.png'),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 5),
+                  width: 150,
+                  child: const Text(
+                    'Flat 50% off on First Order',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(10),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue),
+                child: const Text('Check Out'),
+              ),
+              const Spacer()
+            ],
+          ),
         ),
       ),
     );

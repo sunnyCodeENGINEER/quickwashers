@@ -75,27 +75,7 @@ class ServicesPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = testList[index];
 
-                    return Container(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                              width: 52, child: Image.asset(item.imagePath)),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [Text(item.name), Text(item.price)],
-                          ),
-                          Text(item.action),
-                          ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  foregroundColor: Colors.white),
-                              child: Text('Add'))
-                        ],
-                      ),
-                    );
+                    return ItemRow(item: item);
 
                     // return ListTile(
                     //   title: Text(item.name),
@@ -104,6 +84,40 @@ class ServicesPage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ItemRow extends StatelessWidget {
+  const ItemRow({
+    super.key,
+    required this.item,
+  });
+
+  final ItemModel item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+              width: 52, child: Image.asset(item.imagePath)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(item.name), Text(item.price)],
+          ),
+          Text(item.action),
+          ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white),
+              child: Text('Add'))
+        ],
       ),
     );
   }
