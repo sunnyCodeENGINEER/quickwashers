@@ -17,8 +17,7 @@ class LoginPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Expanded(
-          child: Column(
+         child: Column(
             children: [
               const SizedBox(height: 20),
               SizedBox(
@@ -82,7 +81,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          
         ),
       ),
     );

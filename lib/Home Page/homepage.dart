@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Confirm%20Order/confirm_order_page.dart';
+import 'package:quickwashers/Home%20Page/drop_down_menu.dart';
 import 'package:quickwashers/Home%20Page/servicespage.dart';
 import 'package:quickwashers/Offer%20Page/offerpage.dart';
 
@@ -21,27 +22,30 @@ class HomePage extends StatelessWidget {
             //   width: 24,
             //   child: Image.asset('assets/images/location Icon.png'),
             // ),
-            Text("Home"),
+            // Text("Home"),
+            LocationDropDownMenu(),
           ],
         ),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           SizedBox(
-              width: 24,
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                        builder: (context) => ConfirmOrderPage(),
-                      ),
-                    );
-                  },
-                  icon: Image.asset(
-                    'assets/images/cart Icon.png',
-                    fit: BoxFit.fill,
-                  ))),
+            width: 40,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                    builder: (context) => ConfirmOrderPage(),
+                  ),
+                );
+              },
+              icon: Image.asset(
+                'assets/images/cart Icon.png',
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
           const SizedBox(width: 20),
         ],
       ),

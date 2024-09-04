@@ -42,6 +42,30 @@ class ConfirmOrderPage extends StatelessWidget {
           quantity: 0,
           price: 'GHS 100.00',
           imagePath: 'assets/images/Tshirt.png'),
+      ItemModel(
+          name: 'Jeans',
+          action: 'Wash Only',
+          quantity: 0,
+          price: 'GHS 100.00',
+          imagePath: 'assets/images/Jeans.png'),
+      ItemModel(
+          name: 'Jackets',
+          action: 'Wash Only',
+          quantity: 0,
+          price: 'GHS 100.00',
+          imagePath: 'assets/images/Tshirt.png'),
+      ItemModel(
+          name: 'Jeans',
+          action: 'Wash Only',
+          quantity: 0,
+          price: 'GHS 100.00',
+          imagePath: 'assets/images/Jeans.png'),
+      ItemModel(
+          name: 'Jackets',
+          action: 'Wash Only',
+          quantity: 0,
+          price: 'GHS 100.00',
+          imagePath: 'assets/images/Tshirt.png'),
     ];
 
     return Scaffold(
@@ -66,6 +90,9 @@ class ConfirmOrderPage extends StatelessWidget {
                       // return Container();
                     }),
               ),
+              const SizedBox(
+                height: 360,
+              )
             ],
           ),
         ),
@@ -79,7 +106,7 @@ class ConfirmOrderPage extends StatelessWidget {
               height: 78,
 
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 229, 228, 228),
+                  color: const Color.fromARGB(255, 243, 241, 241),
                   borderRadius: BorderRadius.circular(8)),
               child: TextField(
                 controller: _controller,
@@ -92,6 +119,9 @@ class ConfirmOrderPage extends StatelessWidget {
                     contentPadding: EdgeInsets.symmetric(horizontal: 16),
                     hintText:
                         'Any instructions? Eg. Wash white clothes differently',
+                    hintStyle: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(255, 208, 206, 206)),
                     fillColor: Colors.grey),
               ),
             ),
@@ -106,7 +136,8 @@ class ConfirmOrderPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.3),
+                color:
+                    const Color.fromARGB(255, 172, 213, 246).withOpacity(0.3),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),

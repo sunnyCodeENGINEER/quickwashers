@@ -51,10 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ' Let us take care of your laundry\nand have it delivered to you in 24hrs',
               style: TextStyle(color: Colors.white, fontSize: 14.0),
             ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              child: Container(
+            
+               Container(
                 width: 908.0,
                 height: 308.0,
                 decoration: const BoxDecoration(
@@ -65,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 child: Image.asset('assets/images/Splash 2 Screen Image 2.png'),
               ),
-            )
+            
           ],
         ), // Set the background color (white in this case)
         // Optionally add a centered logo or text here
