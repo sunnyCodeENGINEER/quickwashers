@@ -11,8 +11,8 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Row(
-          children: [Spacer(), const Text('Welcome Back'), Spacer()],
+        title: const Row(
+          children: [Spacer(), Text('Welcome Back'), Spacer()],
         ),
       ),
       body: Padding(

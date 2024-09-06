@@ -134,7 +134,7 @@ class OfferPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
-          BoxShadow(offset: Offset(2, 2), color: Colors.grey.shade200)
+          BoxShadow(offset: const Offset(2, 2), color: Colors.grey.shade200)
         ],
       ),
       child: Padding(

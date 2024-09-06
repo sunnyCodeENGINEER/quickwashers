@@ -18,11 +18,11 @@ class SelectPaymentMethodScreen extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.blue.withOpacity(0.3)),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Add Preferred Payment Method'),
-                const SizedBox(
+                Text('Add Preferred Payment Method'),
+                SizedBox(
                   height: 40,
                 ),
                 Center(
@@ -32,7 +32,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
                         label: 'Card / Mobile Money',
                         image: 'assets/images/Cash on delivery.png',
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 20,
                       ),
                       PaymentMethodButton(

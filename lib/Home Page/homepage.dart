@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quickwashers/Confirm%20Order/confirm_order_page.dart';
 import 'package:quickwashers/Home%20Page/drop_down_menu.dart';
 import 'package:quickwashers/Home%20Page/servicespage.dart';
+import 'package:quickwashers/Location%20Screen/user_location_screen.dart';
 import 'package:quickwashers/Offer%20Page/offerpage.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,7 +15,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         leading: SizedBox(
           width: 24,
-          child: Image.asset('assets/images/location Icon.png'),
+          child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    (context),
+                    MaterialPageRoute(
+                        builder: (context) => const UserLocationScreen()));
+              },
+              icon: Image.asset('assets/images/location Icon.png')),
         ),
         title: const Row(
           children: [
@@ -36,7 +44,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   (context),
                   MaterialPageRoute(
-                    builder: (context) => ConfirmOrderPage(),
+                    builder: (context) => const ConfirmOrderPage(),
                   ),
                 );
               },
@@ -148,7 +156,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            OurOffersTile(),
+            const OurOffersTile(),
           ],
         ),
       ),

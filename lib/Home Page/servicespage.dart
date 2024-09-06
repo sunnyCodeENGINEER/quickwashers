@@ -116,7 +116,7 @@ class ItemRow extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white),
-              child: Text('Add'))
+              child: const Text('Add'))
         ],
       ),
     );

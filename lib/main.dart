@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quickwashers/Home%20Page/homepage.dart';
-import 'package:quickwashers/Login%20PAge/forgot_password_page.dart';
 
 import 'package:quickwashers/Splash%20Screen/splashscreen.dart';
 

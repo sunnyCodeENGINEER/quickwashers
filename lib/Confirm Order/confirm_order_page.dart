@@ -9,14 +9,14 @@ class ConfirmOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _navigate() {
+    void navigate() {
       Navigator.push(
           (context),
           MaterialPageRoute(
               builder: (context) => const SelectPaymentMethodScreen()));
     }
 
-    TextEditingController _controller = TextEditingController();
+    TextEditingController controller = TextEditingController();
     final testList = [
       ItemModel(
           name: 'T-Shirts',
@@ -109,7 +109,7 @@ class ConfirmOrderPage extends StatelessWidget {
                   color: const Color.fromARGB(255, 243, 241, 241),
                   borderRadius: BorderRadius.circular(8)),
               child: TextField(
-                controller: _controller,
+                controller: controller,
                 decoration: const InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -134,25 +134,25 @@ class ConfirmOrderPage extends StatelessWidget {
           children: [
             const Spacer(),
             Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color:
                     const Color.fromARGB(255, 172, 213, 246).withOpacity(0.3),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Payment Info'),
+                  Text('Payment Info'),
                   Row(
-                    children: [const Text('Sub Total')],
+                    children: [Text('Sub Total')],
                   ),
                   Row(
-                    children: [const Text('Delivery Fees')],
+                    children: [Text('Delivery Fees')],
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 185,
                   )
                 ],
@@ -165,19 +165,19 @@ class ConfirmOrderPage extends StatelessWidget {
             const Spacer(),
             Container(
               height: 185,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.5),
                 // borderRadius: BorderRadius.circular(30),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [const Text('Total')],
+                  const Row(
+                    children: [Text('Total')],
                   ),
                   Row(
                     children: [
@@ -186,11 +186,11 @@ class ConfirmOrderPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               elevation: 5, foregroundColor: Colors.blue),
                           onPressed: () {
-                            _navigate();
+                            navigate();
                           },
-                          child: SizedBox(
+                          child: const SizedBox(
                               width: 240,
-                              child: Center(child: const Text('Check Out')))),
+                              child: Center(child: Text('Check Out')))),
                       const Spacer()
                     ],
                   )
