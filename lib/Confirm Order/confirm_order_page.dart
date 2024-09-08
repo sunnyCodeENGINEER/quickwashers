@@ -1,11 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:quickwashers/Confirm%20Order/components/order_row.dart';
 import 'package:quickwashers/Confirm%20Order/select_payment_method_screen.dart';
+import 'package:quickwashers/models/cart_model.dart';
 
-import '../Home Page/servicespage.dart';
 import '../models/item_model.dart';
+import '../models/product_model.dart';
 
-class ConfirmOrderPage extends StatelessWidget {
+class ConfirmOrderPage extends StatefulWidget {
   const ConfirmOrderPage({super.key});
+
+  @override
+  State<ConfirmOrderPage> createState() => _ConfirmOrderPageState();
+}
+
+class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
+  double total = 0.00;
+  double deliveryFee = 32.00;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    var index = 0;
+    while (index < userCart.products.length) {
+      List<String> keys = userCart.products.keys.toList();
+      final id = keys[index];
+      ProductModel item = ProductModel(
+          name: 'name',
+          description: '',
+          service: '',
+          productType: '',
+          price: 0.00,
+          imageUrl: '',
+          available: true,
+          createdAt: '',
+          updatedAt: '');
+      for (var i in testShop) {
+        if (i.id == id) {
+          item = i;
+        }
+      }
+
+      print(userCart.products[id]);
+
+      setState(() {
+        total = total + item.price * userCart.products[id]!;
+      });
+      index += 1;
+    }
+  }
+
+  void updateTotal() {
+    var index = 0;
+    while (index < userCart.products.length) {
+      List<String> keys = userCart.products.keys.toList();
+      final id = keys[index];
+      ProductModel item = ProductModel(
+          name: 'name',
+          description: '',
+          service: '',
+          productType: '',
+          price: 0.00,
+          imageUrl: '',
+          available: true,
+          createdAt: '',
+          updatedAt: '');
+      for (var i in testShop) {
+        if (i.id == id) {
+          item = i;
+        }
+      }
+
+      print(userCart.products[id]);
+
+      setState(() {
+        total = total + item.price * userCart.products[id]!;
+        print(total);
+      });
+      index += 1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +92,7 @@ class ConfirmOrderPage extends StatelessWidget {
     }
 
     TextEditingController controller = TextEditingController();
+
     final testList = [
       ItemModel(
           name: 'T-Shirts',
@@ -71,6 +147,11 @@ class ConfirmOrderPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.chevron_left)),
         title: const Text('Confirm Order'),
       ),
       body: Stack(children: [
@@ -81,14 +162,47 @@ class ConfirmOrderPage extends StatelessWidget {
             children: [
               const Text('Quickwashers Laundry'),
               Expanded(
-                child: ListView.builder(
-                    itemCount: testList.length,
-                    itemBuilder: (context, index) {
-                      final item = testList[index];
+                child:
+                    //  ListView.builder(
+                    //     itemCount: testList.length,
+                    //     itemBuilder: (context, index) {
+                    //       final item = testList[index];
 
-                      return ItemRow(item: item);
-                      // return Container();
-                    }),
+                    //       return ItemRow(item: item);
+                    //       // return Container();
+                    //     }),
+
+                    ListView.builder(
+                        itemCount: userCart.products.length,
+                        itemBuilder: (context, index) {
+                          List<String> keys = userCart.products.keys.toList();
+                          final id = keys[index];
+                          ProductModel item = ProductModel(
+                              name: 'name',
+                              description: '',
+                              service: '',
+                              productType: '',
+                              price: 0.00,
+                              imageUrl: '',
+                              available: true,
+                              createdAt: '',
+                              updatedAt: '');
+                          for (var i in testShop) {
+                            if (i.id == id) {
+                              item = i;
+                            }
+                          }
+
+                          print(userCart.products[id]);
+
+                          print(total);
+
+                          // return ProductRow(
+                          //   item: item,
+                          //   onPressed: updateTotal,
+                          // );
+                          return OrderRow(item: item, total: total);
+                        }),
               ),
               const SizedBox(
                 height: 360,
@@ -142,15 +256,23 @@ class ConfirmOrderPage extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30)),
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Payment Info'),
+                  const Text('Payment Info'),
                   Row(
-                    children: [Text('Sub Total')],
+                    children: [
+                      const Text('Sub Total'),
+                      const Spacer(),
+                      Text('GHs ${total.toStringAsFixed(2)}')
+                    ],
                   ),
                   Row(
-                    children: [Text('Delivery Fees')],
+                    children: [
+                      const Text('Delivery Fees'),
+                      const Spacer(),
+                      Text('GHs ${deliveryFee.toStringAsFixed(2)}')
+                    ],
                   ),
                   SizedBox(
                     height: 185,
@@ -176,8 +298,12 @@ class ConfirmOrderPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
-                    children: [Text('Total')],
+                  Row(
+                    children: [
+                      const Text('Total'),
+                      const Spacer(),
+                      Text('GHs ${(total + deliveryFee).toStringAsFixed(2)}')
+                    ],
                   ),
                   Row(
                     children: [

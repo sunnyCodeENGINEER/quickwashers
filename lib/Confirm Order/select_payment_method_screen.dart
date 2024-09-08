@@ -7,6 +7,11 @@ class SelectPaymentMethodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.chevron_left)),
         title: const Text('Select Payment Method'),
       ),
       body: Column(

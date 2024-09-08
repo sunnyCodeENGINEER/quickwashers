@@ -1,246 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_map/flutter_map.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:latlong2/latlong.dart';
-// import 'package:permission_handler/permission_handler.dart';
-
-// class UserLocationScreen extends StatefulWidget {
-//   const UserLocationScreen({super.key});
-
-//   @override
-//   State<UserLocationScreen> createState() => _UserLocationScreenState();
-// }
-
-// class _UserLocationScreenState extends State<UserLocationScreen> {
-//   LatLng _currentPosition = const LatLng(0.0, 0.0);
-//   String place = 'Home';
-//   final MapController _mapController = MapController();
-//   bool _isMapReady = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _getUserLocation();
-//   }
-
-//   // Get user's current location and update the map and marker when it's ready
-//   Future<void> _getUserLocation() async {
-//     await Permission.locationWhenInUse.request();
-//     Position position = await Geolocator.getCurrentPosition(
-//         desiredAccuracy: LocationAccuracy.high);
-//     setState(() {
-//       _currentPosition = LatLng(position.latitude, position.longitude);
-//       if (_isMapReady) {
-//         _mapController.move(_currentPosition, 15.0);
-//       }
-//     });
-//   }
-
-//   void _setLocation() {
-//     // Logic to set location goes here
-//   }
-
-//   void _saveLocation() {
-//     // Logic to save location goes here
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         leading: const Icon(Icons.chevron_left),
-//         title: const Text('Set delivery location'),
-//       ),
-//       body: Stack(
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(20.0),
-//             child: Column(
-//               children: [
-//                 TextField(
-//                   decoration: InputDecoration(
-//                     prefixIconColor: Colors.grey,
-//                     filled: true,
-//                     fillColor: Colors.grey[200],
-//                     prefixIcon: const Icon(Icons.search),
-//                     hintText: 'Search Offer',
-//                     border: OutlineInputBorder(
-//                       borderRadius: BorderRadius.circular(40.0),
-//                       borderSide: const BorderSide(
-//                         color: Color.fromARGB(255, 176, 176, 176),
-//                         width: 2.0,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(height: 20),
-//                 Container(
-//                   decoration:
-//                       BoxDecoration(borderRadius: BorderRadius.circular(30)),
-//                   clipBehavior: Clip.hardEdge,
-//                   height: 600,
-//                   child: FlutterMap(
-//                     mapController: _mapController,
-//                     options: MapOptions(
-//                       onMapReady: () {
-//                         setState(() {
-//                           _isMapReady = true;
-//                           if (_currentPosition != const LatLng(0.0, 0.0)) {
-//                             _mapController.move(_currentPosition, 15.0);
-//                           }
-//                         });
-//                       },
-//                       initialCenter: LatLng(_currentPosition.latitude,
-//                           _currentPosition.longitude),
-//                       initialZoom: 9.2,
-//                     ),
-//                     children: [
-//                       TileLayer(
-//                         urlTemplate:
-//                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-//                         userAgentPackageName: 'com.example.app',
-//                         maxNativeZoom: 19,
-//                       ),
-//                       RichAttributionWidget(
-//                         attributions: [
-//                           TextSourceAttribution('OpenStreetMap contributors',
-//                               onTap: () {}),
-//                         ],
-//                       ),
-//                       // Adding the MarkerLayer for pins (marker)
-//                       MarkerLayer(
-//                         markers: [
-//                           Marker(
-//                             width: 80.0,
-//                             height: 80.0,
-//                             point: _currentPosition,
-//                             // builder: (ctx) => const Icon(
-//                             //   Icons.location_pin,
-//                             //   color: Colors.red,
-//                             //   size: 40,
-//                             // )
-//                             child: const Icon(
-//                               Icons.location_pin,
-//                               color: Colors.blue,
-//                               size: 40,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Center(
-//             child: Column(
-//               children: [
-//                 const Spacer(),
-//                 Container(
-//                   padding: const EdgeInsets.all(20),
-//                   color: Colors.white,
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       const Text('Address Details'),
-//                       const Text('FLAT NUM. LANDMARK, APARTMENT, ETC.'),
-//                       const TextField(
-//                         decoration: InputDecoration(border: InputBorder.none),
-//                       ),
-//                       const Divider(),
-//                       const Text('SAVE ADDRESS AS'),
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: [
-//                           LocationButton(
-//                             label: 'Home',
-//                             icon: 'assets/images/House.png',
-//                             place: place,
-//                             onSelect: (newPlace) {
-//                               setState(() {
-//                                 place = newPlace;
-//                               });
-//                             },
-//                           ),
-//                           LocationButton(
-//                             label: 'Office',
-//                             icon: 'assets/images/Office.png',
-//                             place: place,
-//                             onSelect: (newPlace) {
-//                               setState(() {
-//                                 place = newPlace;
-//                               });
-//                             },
-//                           ),
-//                           LocationButton(
-//                             label: 'Other',
-//                             icon: 'assets/images/Location pin.png',
-//                             place: place,
-//                             onSelect: (newPlace) {
-//                               setState(() {
-//                                 place = newPlace;
-//                               });
-//                             },
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(height: 10),
-//                       Center(
-//                         child: SizedBox(
-//                           width: 150,
-//                           child: ElevatedButton(
-//                             onPressed: () {},
-//                             style: ElevatedButton.styleFrom(
-//                               backgroundColor: Colors.blue,
-//                               foregroundColor: Colors.white,
-//                             ),
-//                             child: const Text('Continue'),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 30),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class LocationButton extends StatelessWidget {
-//   final String label;
-//   final String icon;
-//   final String place;
-//   final Function(String) onSelect;
-
-//   const LocationButton({
-//     super.key,
-//     required this.label,
-//     required this.icon,
-//     required this.place,
-//     required this.onSelect,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ElevatedButton(
-//       onPressed: () => onSelect(label),
-//       style: ElevatedButton.styleFrom(
-//         backgroundColor: place == label ? Colors.blue : Colors.grey,
-//         foregroundColor: Colors.white,
-//       ),
-//       child: Row(
-//         children: [Image.asset(icon), Text(label)],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
@@ -280,11 +37,11 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
         _mapController.move(_currentPosition, 17.0);
       }
       _searchAddress(_currentPosition).toString();
-      print(address);
+      debugPrint(address);
     });
   }
 
-  Future<String?> _searchAddress(LatLng position) async {
+  Future<void> _searchAddress(LatLng position) async {
     // String? address;
     try {
       // Get placemarks from coordinates
@@ -298,10 +55,9 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
           address =
               '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}';
         });
-        print("Address: $address"); // Print or use the address
       }
     } catch (e) {
-      print("Error occurred while fetching address: $e");
+      debugPrint("Error occurred while fetching address: $e");
     }
     // return address;
   }
@@ -310,8 +66,6 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   Future<void> _searchLocation(String query) async {
     try {
       List<Location> locations = await locationFromAddress(query);
-      print('==============================');
-      print(locations);
 
       if (locations.isNotEmpty) {
         final Location location = locations.first;
@@ -324,8 +78,6 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
         });
       }
     } catch (e) {
-      print('==========');
-      print(query);
       debugPrint("Location not found: $e");
       // You can show a dialog or snack bar to notify the user that the search failed
     }
@@ -334,13 +86,9 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   Future<List<Location>?> _searchLocations(String query) async {
     try {
       List<Location> locations = await locationFromAddress(query);
-      print('==============================');
-      print(locations);
 
       return locations;
     } catch (e) {
-      print('==========');
-      print(query);
       debugPrint("Location not found: $e");
       // You can show a dialog or snack bar to notify the user that the search failed
       return null;
@@ -398,8 +146,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                     ),
                   ),
                   onChanged: (value) {
-                    var test = _searchLocations(value);
-                    print(test);
+                    // implement searching as typing
                   },
                   onSubmitted: (value) {
                     if (value.isNotEmpty) {

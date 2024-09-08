@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quickwashers/Home%20Page/components/product_row.dart';
 import 'package:quickwashers/models/item_model.dart';
+import 'package:quickwashers/models/product_model.dart';
 
 class ServicesPage extends StatelessWidget {
   ServicesPage({super.key});
@@ -71,15 +73,13 @@ class ServicesPage extends StatelessWidget {
             const Text('Working hours'),
             Expanded(
               child: ListView.builder(
-                  itemCount: testList.length,
+                  itemCount: testShop.length,
                   itemBuilder: (context, index) {
-                    final item = testList[index];
+                    final item = testShop[index];
 
-                    return ItemRow(item: item);
-
-                    // return ListTile(
-                    //   title: Text(item.name),
-                    // );
+                    return ProductRow(
+                      item: item,
+                    );
                   }),
             )
           ],
@@ -104,8 +104,7 @@ class ItemRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-              width: 52, child: Image.asset(item.imagePath)),
+          SizedBox(width: 52, child: Image.asset(item.imagePath)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Text(item.name), Text(item.price)],
@@ -114,8 +113,7 @@ class ItemRow extends StatelessWidget {
           ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white),
+                  backgroundColor: Colors.blue, foregroundColor: Colors.white),
               child: const Text('Add'))
         ],
       ),
