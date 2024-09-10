@@ -12,7 +12,10 @@ class SelectPaymentMethodScreen extends StatelessWidget {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.chevron_left)),
-        title: const Text('Select Payment Method'),
+        title: const Text(
+          'Select Payment Method',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [

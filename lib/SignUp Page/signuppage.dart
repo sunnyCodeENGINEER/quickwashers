@@ -1,11 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:quickwashers/services/auth_service.dart';
 
-class SignUpPage extends StatelessWidget {
+import '../OTP Verification/otpverificationpage.dart';
+
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final AuthService _authService = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String errorMessage = '';
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _repeatPasswordController =
+      TextEditingController();
+
+  String role = 'customer';
+
+  bool isLoading = false;
+
+  // function to make sure all fields are filled
+  bool validateFields() {
+    return true;
+  }
+
+  // Function to handle the sign-up process
+  void _register() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = '';
+    });
+
+    if (validateFields()) {
+      // _formKey.currentState!.save();
+
+      final result = await _authService.registerUser(
+        role: 'customer',
+        name: _nameController.text,
+        email: _emailController.text,
+        phone: _numberController.text,
+        password: _passwordController.text,
+        repeatPassword: _passwordController.text,
+      );
+
+      if (result['successful']) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content:
+                  Text('Registration successful! Please verify your email.')),
+        );
+        // Navigate to OTP page
+        Navigator.pushReplacement(
+          (context),
+          MaterialPageRoute(
+            builder: (context) => OTPVerificationPage(
+              phone: _numberController.text,
+            ),
+          ),
+        );
+      } else {
+        setState(() {
+          errorMessage = result['msg'];
+        });
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -27,6 +102,7 @@ class SignUpPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: _nameController,
               decoration: InputDecoration(
                 hintText: 'Full Name',
                 border: OutlineInputBorder(
@@ -36,6 +112,17 @@ class SignUpPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: _numberController,
+              decoration: InputDecoration(
+                hintText: 'Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _emailController,
               decoration: InputDecoration(
                 hintText: 'Email Address',
                 border: OutlineInputBorder(
@@ -45,21 +132,48 @@ class SignUpPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: _passwordController,
+              obscureText: true,
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.phone),
-                hintText: 'GH + Phone Number',
+                prefixIcon: const Icon(Icons.password),
+                hintText: 'Create a password',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
+            TextField(
+              controller: _repeatPasswordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.password),
+                hintText: 'Repeat your password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-              child: const Text('Continue'),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.blue,
+                    )
+                  : SizedBox(
+                      width: 160,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _register();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
+                          // minimumSize: const Size(double.infinity, 50),
+                        ),
+                        child: const Text('Continue'),
+                      ),
+                    ),
             ),
             const SizedBox(height: 20),
             Center(
@@ -74,6 +188,11 @@ class SignUpPage extends StatelessWidget {
                 ),
               ),
             ),
+            if (errorMessage.isNotEmpty)
+              Text(
+                errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
           ],
         ),
       ),

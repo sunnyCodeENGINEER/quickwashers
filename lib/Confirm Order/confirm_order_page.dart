@@ -3,7 +3,6 @@ import 'package:quickwashers/Confirm%20Order/components/order_row.dart';
 import 'package:quickwashers/Confirm%20Order/select_payment_method_screen.dart';
 import 'package:quickwashers/models/cart_model.dart';
 
-import '../models/item_model.dart';
 import '../models/product_model.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
@@ -93,57 +92,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
     TextEditingController controller = TextEditingController();
 
-    final testList = [
-      ItemModel(
-          name: 'T-Shirts',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Tshirt.png'),
-      ItemModel(
-          name: 'Shirts',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Shirt.png'),
-      ItemModel(
-          name: 'Jeans',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Jeans.png'),
-      ItemModel(
-          name: 'Jackets',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Tshirt.png'),
-      ItemModel(
-          name: 'Jeans',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Jeans.png'),
-      ItemModel(
-          name: 'Jackets',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Tshirt.png'),
-      ItemModel(
-          name: 'Jeans',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Jeans.png'),
-      ItemModel(
-          name: 'Jackets',
-          action: 'Wash Only',
-          quantity: 0,
-          price: 'GHS 100.00',
-          imagePath: 'assets/images/Tshirt.png'),
-    ];
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -152,7 +100,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.chevron_left)),
-        title: const Text('Confirm Order'),
+        title: const Text(
+          'Confirm Order',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Stack(children: [
         Padding(
@@ -274,7 +225,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                       Text('GHs ${deliveryFee.toStringAsFixed(2)}')
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 185,
                   )
                 ],

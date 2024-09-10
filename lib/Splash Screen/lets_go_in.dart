@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Login%20PAge/loginpage.dart';
 import 'package:quickwashers/SignUp%20Page/signuppage.dart';
+import 'package:quickwashers/services/auth_service.dart';
 
 class LetsGoIn extends StatefulWidget {
   LetsGoIn({super.key});
@@ -82,8 +83,10 @@ class CustomLetsGoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthService authService = AuthService();
     return ElevatedButton(
       onPressed: () {
+        // print(authService.getToken().toString());
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => destination),

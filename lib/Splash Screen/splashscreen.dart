@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:quickwashers/Splash%20Screen/lets_go_in.dart'; // Import for the Timer
+import 'package:quickwashers/Home%20Page/homepage.dart';
+import 'package:quickwashers/Splash%20Screen/lets_go_in.dart';
+import 'package:quickwashers/models/user_details.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,11 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
+    // retrieveData();
+
     // Start a timer that will navigate to LoginPage after 3 seconds
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LetsGoIn()),
+        MaterialPageRoute(
+            builder: (context) =>
+                currentUser.token == '' ? LetsGoIn() : const HomePage()),
       );
     });
   }
@@ -51,19 +57,17 @@ class _SplashScreenState extends State<SplashScreen> {
               ' Let us take care of your laundry\nand have it delivered to you in 24hrs',
               style: TextStyle(color: Colors.white, fontSize: 14.0),
             ),
-            
-               Container(
-                width: 908.0,
-                height: 308.0,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/Splash 2 Screen Image 2.png'),
-                      fit: BoxFit.cover),
-                ),
-                child: Image.asset('assets/images/Splash 2 Screen Image 2.png'),
+            Container(
+              width: 908.0,
+              height: 308.0,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image:
+                        AssetImage('assets/images/Splash 2 Screen Image 2.png'),
+                    fit: BoxFit.cover),
               ),
-            
+              child: Image.asset('assets/images/Splash 2 Screen Image 2.png'),
+            ),
           ],
         ), // Set the background color (white in this case)
         // Optionally add a centered logo or text here

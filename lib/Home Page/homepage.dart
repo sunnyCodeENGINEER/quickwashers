@@ -26,11 +26,6 @@ class HomePage extends StatelessWidget {
         ),
         title: const Row(
           children: [
-            // SizedBox(
-            //   width: 24,
-            //   child: Image.asset('assets/images/location Icon.png'),
-            // ),
-            // Text("Home"),
             LocationDropDownMenu(),
           ],
         ),
@@ -64,21 +59,26 @@ class HomePage extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
-                prefixIconColor: Colors.grey,
+                prefixIconColor: const Color.fromARGB(255, 55, 55, 55),
                 filled: true,
                 fillColor: Colors.grey[200],
                 prefixIcon: const Icon(Icons.search),
-                hintText: 'Search Offer',
+                hintText: 'Search Laundry Service',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(40.0),
                   borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 176, 176, 176), width: 2.0),
+                      color: Color.fromARGB(255, 224, 222, 222), width: 2.0),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             const Text('Laundry Services',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Select your preferred service(s)',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey)),
             const SizedBox(height: 10),
             GridView.count(
               shrinkWrap: true,
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
