@@ -4,6 +4,10 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:quickwashers/models/user_details.dart';
+import 'package:quickwashers/services/auth_service.dart';
+
+import '../Home Page/homepage.dart';
 
 class UserLocationScreen extends StatefulWidget {
   const UserLocationScreen({super.key});
@@ -19,6 +23,10 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   final MapController _mapController = MapController();
   bool _isMapReady = false;
   TextEditingController searchController = TextEditingController();
+
+  final AuthService _authService = AuthService();
+
+  String errorMessage = '';
 
   @override
   void initState() {
@@ -95,8 +103,24 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     }
   }
 
-  void _setLocation() {
-    // Logic to set location goes here
+  Future<void> _setLocation() async {
+    print(currentUser.token);
+
+    final result = await _authService.setLocation(
+        longitude: 6.6747,
+        latitude: -1.5717,
+        category: place,
+        token: currentUser.token);
+
+    if (result['successful']) {
+      print(result['location']);
+      Navigator.push(
+          (context), MaterialPageRoute(builder: (context) => const HomePage()));
+    } else {
+      setState(() {
+        errorMessage = result['msg'];
+      });
+    }
   }
 
   void _saveLocation() {
@@ -106,6 +130,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -279,7 +304,9 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                         child: SizedBox(
                           width: 150,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _setLocation();
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                               foregroundColor: Colors.white,

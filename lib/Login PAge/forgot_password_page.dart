@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/OTP%20Verification/otpverificationpage.dart';
+import 'package:quickwashers/services/auth_service.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -9,6 +10,7 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final AuthService _authService = AuthService();
   final TextEditingController phoneController = TextEditingController();
 
   @override
@@ -63,11 +65,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                _authService.sendPasswordResetLink(phone: phoneController.text);
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => OTPVerificationPage(phone: phoneController.text,)),
-                  (Route<dynamic> route) => false,
+                      builder: (context) => OTPVerificationPage(
+                            phone: phoneController.text,
+                          )),
+                  // (Route<dynamic> route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(

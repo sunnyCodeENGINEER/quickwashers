@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/homepage.dart';
 import 'package:quickwashers/Splash%20Screen/lets_go_in.dart';
 import 'package:quickwashers/models/user_details.dart';
+import 'package:quickwashers/services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +14,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  AuthService _authService = AuthService();
   @override
   void initState() {
     super.initState();
 
-    // retrieveData();
+    retrieveData();
+    // _authService.setLocation(
+    //     longitude: 6.6747, latitude: -1.5717, category: 'Home');
+    // _authService.sendPasswordResetEmail(phone: '0206452047');
 
     // Start a timer that will navigate to LoginPage after 3 seconds
     Timer(const Duration(seconds: 3), () {
