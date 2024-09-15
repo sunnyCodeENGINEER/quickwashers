@@ -13,6 +13,40 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final AuthService _authService = AuthService();
   final TextEditingController phoneController = TextEditingController();
 
+  bool isLoading = false;
+  String errorMessage = '';
+
+  void forgotPassword() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = '';
+    });
+
+    final result = await _authService.sendPasswordResetLink(
+      phone: phoneController.text,
+    );
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (result['successful']) {
+      // Navigate to OTP page
+      Navigator.push(
+        (context),
+        MaterialPageRoute(
+            builder: (context) => OTPVerificationPage(
+                  phone: phoneController.text,
+                  reset: true,
+                )),
+      );
+    } else {
+      setState(() {
+        errorMessage = result['msg'];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,15 +99,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                _authService.sendPasswordResetLink(phone: phoneController.text);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => OTPVerificationPage(
-                            phone: phoneController.text,
-                          )),
-                  // (Route<dynamic> route) => false,
-                );
+                forgotPassword();
+                // _authService.sendPasswordResetLink(phone: phoneController.text);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => OTPVerificationPage(
+                //             phone: phoneController.text,
+                //             reset: true,
+                //           )),
+                // (Route<dynamic> route) => false,
+                // );
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(140, 44),

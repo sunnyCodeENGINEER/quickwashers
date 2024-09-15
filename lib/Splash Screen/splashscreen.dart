@@ -19,10 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    retrieveData();
+    // retrieveData();
+    
     // _authService.setLocation(
     //     longitude: 6.6747, latitude: -1.5717, category: 'Home');
-    // _authService.sendPasswordResetEmail(phone: '0206452047');
+    // _authService.sendPasswordResetLink(phone: '0206452047');
 
     // Start a timer that will navigate to LoginPage after 3 seconds
     Timer(const Duration(seconds: 3), () {

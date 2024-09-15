@@ -67,7 +67,6 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     } catch (e) {
       debugPrint("Error occurred while fetching address: $e");
     }
-    // return address;
   }
 
   // Search for a location by name or address and move the map to that location
@@ -104,15 +103,19 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   }
 
   Future<void> _setLocation() async {
+    retrieveData();
     print(currentUser.token);
 
     final result = await _authService.setLocation(
-        longitude: 6.6747,
-        latitude: -1.5717,
+        longitude: _currentPosition.longitude,
+        latitude: _currentPosition.latitude,
         category: place,
         token: currentUser.token);
 
     if (result['successful']) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Location saved successfully')),
+      );
       print(result['location']);
       Navigator.push(
           (context), MaterialPageRoute(builder: (context) => const HomePage()));

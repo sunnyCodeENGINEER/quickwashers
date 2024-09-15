@@ -48,8 +48,35 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.push(
             (context),
             MaterialPageRoute(
-                builder: (context) =>  OTPVerificationPage(phone: currentUser.number,)));
+                builder: (context) => OTPVerificationPage(
+                      phone: currentUser.number,
+                    )));
       }
+      setState(() {
+        errorMessage = result['msg'];
+      });
+    }
+  }
+
+  void forgotPassword() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = '';
+    });
+
+    final result = await authService.sendPasswordResetEmail(
+      phone: phoneController.text,
+    );
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (result['successful']) {
+      // Navigate to OTP page
+      Navigator.push((context),
+          MaterialPageRoute(builder: (context) => const ForgotPasswordPage()));
+    } else {
       setState(() {
         errorMessage = result['msg'];
       });
@@ -122,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextButton(
                     onPressed: () {
+                      // forgotPassword();
                       Navigator.push(
                           (context),
                           MaterialPageRoute(

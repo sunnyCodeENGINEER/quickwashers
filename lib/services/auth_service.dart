@@ -121,9 +121,7 @@ class AuthService {
     final body = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      // // Save token in shared preferences for persistent login
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // await prefs.setString('token', body['token']);
+      
       return {
         'successful': true,
         'msg': body['msg'],
@@ -183,6 +181,38 @@ class AuthService {
       return {
         'successful': true,
         'msg': body['msg'],
+      };
+    } else {
+      return {
+        'successful': false,
+        'msg': body['msg'],
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword({
+    required String newPassword,
+    required String verificationCode,
+  }) async {
+    final url = Uri.parse('${baseUrl}api/auth/reset-password');
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'verificationCode': verificationCode,
+        'newPassword': newPassword,
+      }),
+    );
+    print(response.statusCode);
+    print(response.body);
+    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return {
+        'successful': true,
+        'msg': body['msg'],
+        // 'user': body['user'],
       };
     } else {
       return {
@@ -305,8 +335,7 @@ class AuthService {
             url,
             headers: {
               'Content-Type': 'application/json',
-              'Authorization':
-                  'Bearer $token',
+              'Authorization': 'Bearer $token',
             },
             body: jsonEncode({
               'longitude': longitude,
