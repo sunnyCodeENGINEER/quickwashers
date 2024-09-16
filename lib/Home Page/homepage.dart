@@ -5,9 +5,30 @@ import 'package:quickwashers/Home%20Page/drop_down_menu.dart';
 import 'package:quickwashers/Home%20Page/servicespage.dart';
 import 'package:quickwashers/Location%20Screen/user_location_screen.dart';
 import 'package:quickwashers/Offer%20Page/offerpage.dart';
+import 'package:quickwashers/models/service_model.dart';
+import 'package:quickwashers/services/services_service.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<List<ServiceModel>> futureServices;
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      futureServices = ServicesService().fetchServices();
+      print(futureServices.toString());
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to load services.')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,52 +103,97 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             GridView.count(
               shrinkWrap: true,
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
               children: [
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          (context),
-                          MaterialPageRoute(
-                              builder: (context) => ServicesPage()));
-                    },
-                    child: const ServiceTile(
-                        title: 'Wash & Fold',
-                        image: 'assets/images/Laundry.png')),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        (context),
-                        MaterialPageRoute(
-                            builder: (context) => ServicesPage()));
+                // GestureDetector(
+                //     onTap: () {
+                //       Navigator.push(
+                //           (context),
+                //           MaterialPageRoute(
+                //               builder: (context) => ServicesPage()));
+                //     },
+                //     child: const ServiceTile(
+                //         title: 'Wash & Fold',
+                //         image: 'assets/images/Laundry.png')),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         (context),
+                //         MaterialPageRoute(
+                //             builder: (context) => ServicesPage()));
+                //   },
+                //   child: const ServiceTile(
+                //       title: 'Iron & Fold',
+                //       image: 'assets/images/Ironing board.png'),
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         (context),
+                //         MaterialPageRoute(
+                //             builder: (context) => ServicesPage()));
+                //   },
+                //   child: const ServiceTile(
+                //       title: 'Dry Cleaning',
+                //       image: 'assets/images/Dry cleaning.png'),
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         (context),
+                //         MaterialPageRoute(
+                //             builder: (context) => ServicesPage()));
+                //   },
+                //   child: const ServiceTile(
+                //       title: 'Household Cleaning',
+                //       image: 'assets/images/House cleaning.png'),
+                // ),
+
+                FutureBuilder<List<ServiceModel>>(
+                  future: futureServices,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('No services available'));
+                    } else {
+                      final services = snapshot.data!;
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // 2 columns
+                          childAspectRatio: 3 / 2, // Aspect ratio for each item
+                          crossAxisSpacing: 10, // Space between columns
+                          mainAxisSpacing: 10, // Space between rows
+                        ),
+                        itemCount: services.length,
+                        itemBuilder: (context, index) {
+                          final service = services[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ServicesPage(
+                                    serviceId: service.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ServiceTile(
+                              title: service.name,
+                              image:
+                                  'assets/images/House cleaning.png', // Dynamically provide an image
+                            ),
+                          );
+                        },
+                      );
+                    }
                   },
-                  child: const ServiceTile(
-                      title: 'Iron & Fold',
-                      image: 'assets/images/Ironing board.png'),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        (context),
-                        MaterialPageRoute(
-                            builder: (context) => ServicesPage()));
-                  },
-                  child: const ServiceTile(
-                      title: 'Dry Cleaning',
-                      image: 'assets/images/Dry cleaning.png'),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        (context),
-                        MaterialPageRoute(
-                            builder: (context) => ServicesPage()));
-                  },
-                  child: const ServiceTile(
-                      title: 'Household Cleaning',
-                      image: 'assets/images/House cleaning.png'),
                 ),
               ],
             ),

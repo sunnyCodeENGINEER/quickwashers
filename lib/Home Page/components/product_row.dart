@@ -3,7 +3,6 @@ import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
 class ProductRow extends StatefulWidget {
-  
   final ProductModel item;
   const ProductRow({super.key, required this.item});
 
@@ -32,7 +31,10 @@ class _ProductRowState extends State<ProductRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 52, child: Image.asset(widget.item.imageUrl)),
+          SizedBox(
+              width: 52,
+              // child: Image.asset(widget.item.imageUrl),
+              child: Image.asset('assets/images/Jeans.png')),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,7 +42,7 @@ class _ProductRowState extends State<ProductRow> {
               Text('GHs${widget.item.price.toStringAsFixed(2)}')
             ],
           ),
-          Text(widget.item.service),
+          Text(widget.item.service.name),
           itemCount(widget.item.id.toString()) < 1
               ? ElevatedButton(
                   onPressed: () {

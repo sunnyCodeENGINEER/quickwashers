@@ -32,7 +32,10 @@ class _OrderRowState extends State<OrderRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 52, child: Image.asset(widget.item.imageUrl)),
+          SizedBox(
+            width: 52,
+            // child: Image.asset(widget.item.imageUrl),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,7 +43,7 @@ class _OrderRowState extends State<OrderRow> {
               Text('GHs${widget.item.price.toStringAsFixed(2)}')
             ],
           ),
-          Text(widget.item.service),
+          Text(widget.item.service.name),
           itemCount(widget.item.id.toString()) < 1
               ? ElevatedButton(
                   onPressed: () {

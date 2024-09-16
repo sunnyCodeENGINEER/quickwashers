@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quickwashers/Confirm%20Order/components/order_row.dart';
 import 'package:quickwashers/Confirm%20Order/select_payment_method_screen.dart';
 import 'package:quickwashers/models/cart_model.dart';
+import 'package:quickwashers/services/services_service.dart';
 
 import '../models/product_model.dart';
 
@@ -16,9 +17,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   double total = 0.00;
   double deliveryFee = 32.00;
 
+  Map<String, Future<ProductModel>> productCache = {};
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     var index = 0;
@@ -26,9 +28,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       List<String> keys = userCart.products.keys.toList();
       final id = keys[index];
       ProductModel item = ProductModel(
+          id: '00',
           name: 'name',
           description: '',
-          service: '',
+          service: Services(id: 'id', name: 'Wash Only'),
           productType: '',
           price: 0.00,
           imageUrl: '',
@@ -40,8 +43,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           item = i;
         }
       }
-
-      print(userCart.products[id]);
+      print('===============================');
+      print(userCart.products.keys.toList());
 
       setState(() {
         total = total + item.price * userCart.products[id]!;
@@ -56,9 +59,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       List<String> keys = userCart.products.keys.toList();
       final id = keys[index];
       ProductModel item = ProductModel(
+          id: '00',
           name: 'name',
           description: '',
-          service: '',
+          service: Services(id: 'id', name: 'Wash Only'),
           productType: '',
           price: 0.00,
           imageUrl: '',
@@ -111,50 +115,83 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Quickwashers Laundry'),
               Expanded(
-                child:
-                    //  ListView.builder(
-                    //     itemCount: testList.length,
-                    //     itemBuilder: (context, index) {
-                    //       final item = testList[index];
+                  child:
 
-                    //       return ItemRow(item: item);
-                    //       // return Container();
-                    //     }),
+                      // ListView.builder(
+                      //     itemCount: userCart.products.length,
+                      //     itemBuilder: (context, index) {
+                      //       List<String> keys = userCart.products.keys.toList();
+                      //       final id = keys[index];
+                      //       ProductModel item = ProductModel(
+                      //           id: '00',
+                      //           name: 'name',
+                      //           description: '',
+                      //           service: Services(id: 'id', name: 'Wash Only'),
+                      //           productType: '',
+                      //           price: 0.00,
+                      //           imageUrl: '',
+                      //           available: true,
+                      //           createdAt: '',
+                      //           updatedAt: '');
+                      //       for (var i in testShop) {
+                      //         if (i.id == id) {
+                      //           item = i;
+                      //         }
+                      //       }
 
-                    ListView.builder(
-                        itemCount: userCart.products.length,
-                        itemBuilder: (context, index) {
-                          List<String> keys = userCart.products.keys.toList();
-                          final id = keys[index];
-                          ProductModel item = ProductModel(
-                              name: 'name',
-                              description: '',
-                              service: '',
-                              productType: '',
-                              price: 0.00,
-                              imageUrl: '',
-                              available: true,
-                              createdAt: '',
-                              updatedAt: '');
-                          for (var i in testShop) {
-                            if (i.id == id) {
-                              item = i;
-                            }
-                          }
+                      //       print(userCart.products[id]);
 
-                          print(userCart.products[id]);
+                      //       print(total);
 
-                          print(total);
+                      //       // return ProductRow(
+                      //       //   item: item,
+                      //       //   onPressed: updateTotal,
+                      //       // );
+                      //       return OrderRow(item: item, total: total);
+                      //     }),
 
-                          // return ProductRow(
-                          //   item: item,
-                          //   onPressed: updateTotal,
-                          // );
-                          return OrderRow(item: item, total: total);
-                        }),
-              ),
+                      ListView.builder(
+                itemCount: userCart.products.length,
+                itemBuilder: (context, index) {
+                  List<String> keys = userCart.products.keys.toList();
+                  final id = keys[index];
+
+                  // If the product info is not in cache, fetch it from the API
+                  if (!productCache.containsKey(id)) {
+                    productCache[id] =
+                        ServicesService().fetchProductById(id: id);
+                  }
+
+                  return FutureBuilder<ProductModel>(
+                    future:
+                        productCache[id], // Use the cached future or API call
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child:
+                                CircularProgressIndicator()); // Show a loader while fetching
+                      } else if (snapshot.hasError) {
+                        return Center(
+                            child: Text(
+                                'Error: ${snapshot.error}')); // Handle error
+                      } else if (!snapshot.hasData) {
+                        return const Center(child: Text('No product found'));
+                      } else {
+                        // When product data is successfully fetched
+                        final item = snapshot.data!;
+
+                        // Update the total or perform any other operations
+                        print(userCart.products[id]);
+                        print(total);
+
+                        // Return the OrderRow widget with the fetched product
+                        return OrderRow(item: item, total: total);
+                      }
+                    },
+                  );
+                },
+              )),
               const SizedBox(
                 height: 360,
               )

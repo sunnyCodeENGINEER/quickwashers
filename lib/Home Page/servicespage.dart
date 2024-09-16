@@ -3,59 +3,28 @@ import 'package:quickwashers/Home%20Page/components/product_row.dart';
 import 'package:quickwashers/models/item_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
-class ServicesPage extends StatelessWidget {
-  ServicesPage({super.key});
+import '../services/services_service.dart';
 
-  final testList = [
-    ItemModel(
-        name: 'T-Shirts',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Tshirt.png'),
-    ItemModel(
-        name: 'Shirts',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Shirt.png'),
-    ItemModel(
-        name: 'Jeans',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Jeans.png'),
-    ItemModel(
-        name: 'Jackets',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Tshirt.png'),
-    ItemModel(
-        name: 'Shorts',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Football shorts.png'),
-    ItemModel(
-        name: 'Socks',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Tshirt.png'),
-    ItemModel(
-        name: 'Face towel',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Tshirt.png'),
-    ItemModel(
-        name: 'T-Shirts',
-        action: 'Wash Only',
-        quantity: 0,
-        price: 'GHS 100.00',
-        imagePath: 'assets/images/Tshirt.png'),
-  ];
+class ServicesPage extends StatefulWidget {
+  final String serviceId;
+  const ServicesPage({super.key, required this.serviceId});
+
+  @override
+  State<ServicesPage> createState() => _ServicesPageState();
+}
+
+class _ServicesPageState extends State<ServicesPage> {
+
+  late Future<List<ProductModel>> futureProducts;
+
+  @override
+  void initState() {
+    super.initState();
+    futureProducts = ServicesService().fetchProductsByService(serviceId: widget.serviceId);
+    // futureProducts = ServicesService().fetchProducts();
+    
+    print(futureProducts.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,34 +47,48 @@ class ServicesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Quickwashers Laundry',
+              'Laundry Bowl',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'location',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-            const Text(
-              'Working hours',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: testShop.length,
-                  itemBuilder: (context, index) {
-                    final item = testShop[index];
+                child:
+                    // ListView.builder(
+                    //     itemCount: testShop.length,
+                    //     itemBuilder: (context, index) {
+                    //       final item = testShop[index];
 
-                    return ProductRow(
-                      item: item,
-                    );
-                  }),
-            )
+                    //       return ProductRow(
+                    //         item: item,
+                    //       );
+                    //     }),
+
+                    FutureBuilder<List<ProductModel>>(
+                        future: futureProducts,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Center(
+                                child: Text('No services available'));
+                          } else {
+                            final products = snapshot.data!;
+                            return ListView.builder(
+                                itemCount: products.length,
+                                itemBuilder: (context, index) {
+                                  final item = products[index];
+
+                                  return ProductRow(
+                                    item: item,
+                                  );
+                                });
+                          }
+                        }))
           ],
         ),
       ),
