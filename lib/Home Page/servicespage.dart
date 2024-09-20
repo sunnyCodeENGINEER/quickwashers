@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/components/product_row.dart';
+import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/models/item_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
@@ -14,16 +15,25 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-
+  ServicesService _servicesService = ServicesService();
   late Future<List<ProductModel>> futureProducts;
 
   @override
   void initState() {
     super.initState();
-    futureProducts = ServicesService().fetchProductsByService(serviceId: widget.serviceId);
+    var newCart = ServicesService().retrieveCart();
+    // userCart.products = newCart.items;
+
+    futureProducts =
+        ServicesService().fetchProductsByService(serviceId: widget.serviceId);
     // futureProducts = ServicesService().fetchProducts();
-    
+
     print(futureProducts.toString());
+  }
+
+  void updateUserCart() async {
+    var response = _servicesService.updateCart();
+    Navigator.pop(context);
   }
 
   @override
@@ -33,7 +43,8 @@ class _ServicesPageState extends State<ServicesPage> {
         leading: IconButton(
           icon: const Icon(Icons.chevron_left),
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            updateUserCart();
           },
         ),
       ),

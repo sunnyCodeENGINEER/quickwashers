@@ -23,6 +23,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
 
+    ServicesService().retrieveCart();
+    total = userCart.totalAmount;
+
     var index = 0;
     while (index < userCart.products.length) {
       List<String> keys = userCart.products.keys.toList();

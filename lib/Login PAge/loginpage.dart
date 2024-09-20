@@ -40,6 +40,8 @@ class _LoginPageState extends State<LoginPage> {
 
     if (result['successful']) {
       // Navigate to OTP page
+      // currentUser.token = result['token'];
+      currentUser.retrieveData();
       Navigator.push(
           (context), MaterialPageRoute(builder: (context) => const HomePage()));
     } else {

@@ -24,7 +24,7 @@ class CartModel {
     // Extract the items array and convert it into a Map<String, int> for products
     Map<String, int> productsMap = {};
     for (var item in json['items']) {
-      String productId = item['product'];
+      String productId = item['product'].toString();
       int quantity = item['quantity'];
       productsMap[productId] = quantity;
     }

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
 import '../models/service_model.dart';
+import '../models/user_details.dart';
 
 class ServicesService {
   static const String baseUrl = 'https://laundry-main-1.onrender.com/';
@@ -86,5 +88,68 @@ class ServicesService {
     }
   }
 
-  
+  Future<Map<String, dynamic>> retrieveCart() async {
+    final url = Uri.parse('${baseUrl}api/cart/');
+    print(currentUser.token);
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${currentUser.token}',
+      },
+    );
+
+    print(response.statusCode);
+    print(response.body);
+    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      userCart = CartModel.fromJson({
+        'items': body[0]['items'],
+        'totalAmount': body[0]['totalAmount'],
+        'createdAt': body[0]['createdAt'],
+        'updatedAt': body[0]['updatedAt'],
+      });
+      return {
+        'successful': true,
+        'items': body[0]['items'],
+        'totalAmount': body[0]['totalAmount'],
+      };
+    } else {
+      return {
+        'successful': false,
+        'msg': body['msg'],
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> updateCart() async {
+    final url = Uri.parse('${baseUrl}api/cart/add');
+    print(currentUser.token);
+
+    final response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${currentUser.token}',
+        },
+        body: cartToJson(userCart));
+
+    print(response.statusCode);
+    print(response.body);
+    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return {
+        'successful': true,
+        'items': body['items'],
+        'totalAmount': body['totalAmount'],
+      };
+    } else {
+      return {
+        'successful': false,
+        'msg': body['msg'],
+      };
+    }
+  }
 }
