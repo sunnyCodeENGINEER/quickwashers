@@ -82,7 +82,7 @@ class ServicesService {
     if (response.statusCode == 200) {
       final productData = json.decode(response.body);
       return ProductModel.fromJson(
-          productData); // Assuming you have a fromJson method in ProductModel
+          productData); 
     } else {
       throw Exception('Failed to load product');
     }
@@ -100,7 +100,7 @@ class ServicesService {
       },
     );
 
-    print(response.statusCode);
+    print(currentUser.token);
     print(response.body);
     final body = jsonDecode(response.body);
 

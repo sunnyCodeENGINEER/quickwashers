@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/components/product_row.dart';
-import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/models/item_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
@@ -15,8 +14,11 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
-  ServicesService _servicesService = ServicesService();
+  final ServicesService _servicesService = ServicesService();
   late Future<List<ProductModel>> futureProducts;
+
+  String category = 'Man';
+  List<String> categories = ['Man', 'Woman', 'Kids', 'Others'];
 
   @override
   void initState() {
@@ -61,6 +63,51 @@ class _ServicesPageState extends State<ServicesPage> {
               'Laundry Bowl',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: categories
+                  .map((item) => TextButton(
+                      onPressed: () {
+                        setState(() {
+                          category = item;
+                        });
+                      },
+                      child: SizedBox(
+                        width: 60,
+                        child: Center(
+                          child: Text(
+                            item.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  item == category ? Colors.blue : Colors.grey,
+                            ),
+                          ),
+                        ),
+                      )))
+                  .toList(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: categories
+                    .map((item) => SizedBox(
+                          width: 60,
+                          child: item == category
+                              ? const Center(
+                                  child: Divider(
+                                    color: Colors.blue,
+                                    thickness: 3,
+                                    // indent: 2,
+                                  ),
+                                )
+                              : Container(),
+                        ))
+                    .toList(),
+              ),
+            ),
             Expanded(
                 child:
                     // ListView.builder(
@@ -89,10 +136,20 @@ class _ServicesPageState extends State<ServicesPage> {
                                 child: Text('No services available'));
                           } else {
                             final products = snapshot.data!;
+                            var sortedProducts = [];
+                            for (var product in products) {
+                              print(
+                                  '${product.productType.toLowerCase()} --- ${category.toLowerCase()}');
+                              if (product.productType.toLowerCase() ==
+                                  category.toLowerCase()) {
+                                sortedProducts.add(product);
+                              }
+                            }
+
                             return ListView.builder(
-                                itemCount: products.length,
+                                itemCount: sortedProducts.length,
                                 itemBuilder: (context, index) {
-                                  final item = products[index];
+                                  final item = sortedProducts[index];
 
                                   return ProductRow(
                                     item: item,

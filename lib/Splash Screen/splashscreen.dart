@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
   @override
   void initState() {
     super.initState();

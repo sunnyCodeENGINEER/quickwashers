@@ -10,6 +10,6 @@ class SetLocationScreen extends StatefulWidget {
 class _SetLocationScreenState extends State<SetLocationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(),body: Column(children: [],),);
+    return Scaffold(appBar: AppBar(),body: const Column(children: [],),);
   }
 }

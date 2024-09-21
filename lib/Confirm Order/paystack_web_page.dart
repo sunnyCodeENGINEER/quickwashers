@@ -37,7 +37,7 @@ class _PaystackWebPageState extends State<PaystackWebPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: WebView(
+      body: const WebView(
         initialUrl:
             'https://www.google.com/search?q=viewing+website+in+flutter+app&oq=viewing+website+in+flutter+app&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRifBdIBCTEzMzk1ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8',
       ),

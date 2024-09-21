@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Login%20PAge/loginpage.dart';
 import 'package:quickwashers/SignUp%20Page/signuppage.dart';
-import 'package:quickwashers/services/auth_service.dart';
+// import 'package:quickwashers/services/auth_service.dart';
 
 class LetsGoIn extends StatefulWidget {
-  LetsGoIn({super.key});
+  const LetsGoIn({super.key});
 
-  String imagePath = 'assets/images/Laundry detergent.png';
+  final String imagePath = 'assets/images/Laundry detergent.png';
 
   @override
   State<LetsGoIn> createState() => _LetsGoInState();
@@ -18,7 +18,7 @@ class _LetsGoInState extends State<LetsGoIn> {
   @override
   void initState() {
     // TODO: implement initState
-    // super.initState();
+    super.initState();
     // Timer(const Duration(seconds: 3), () {
     //   widget.imagePath = 'assets/images/Washing.png';
     // });
@@ -83,7 +83,7 @@ class CustomLetsGoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthService authService = AuthService();
+    // AuthService authService = AuthService();
     return ElevatedButton(
       onPressed: () {
         // print(authService.getToken().toString());

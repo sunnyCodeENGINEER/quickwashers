@@ -32,7 +32,7 @@ class _OrderRowState extends State<OrderRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 52,
             // child: Image.asset(widget.item.imageUrl),
           ),

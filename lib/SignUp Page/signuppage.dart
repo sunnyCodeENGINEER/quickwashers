@@ -12,7 +12,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final AuthService _authService = AuthService();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   String errorMessage = '';
 
   final TextEditingController _nameController = TextEditingController();
@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
       if (result['successful']) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content:
                   Text('Registration successful! Please verify your email.')),
         );
@@ -191,7 +191,7 @@ class _SignUpPageState extends State<SignUpPage> {
             if (errorMessage.isNotEmpty)
               Text(
                 errorMessage,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
           ],
         ),
