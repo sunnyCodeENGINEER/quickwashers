@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    retrieveData();
+    // retrieveData();
     
     // _authService.setLocation(
     //     longitude: 6.6747, latitude: -1.5717, category: 'Home');

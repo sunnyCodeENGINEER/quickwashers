@@ -3,7 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaystackWebPage extends StatefulWidget {
-  const PaystackWebPage({super.key});
+  final String url;
+  const PaystackWebPage({super.key, required this.url});
 
   @override
   State<PaystackWebPage> createState() => _PaystackWebPageState();
@@ -37,9 +38,10 @@ class _PaystackWebPageState extends State<PaystackWebPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const WebView(
+      body: WebView(
         initialUrl:
-            'https://www.google.com/search?q=viewing+website+in+flutter+app&oq=viewing+website+in+flutter+app&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRifBdIBCTEzMzk1ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8',
+            widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

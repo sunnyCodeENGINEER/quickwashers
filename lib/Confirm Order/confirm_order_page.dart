@@ -23,7 +23,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
 
-    ServicesService().retrieveCart();
+    var newCart = ServicesService().retrieveCart();
     total = userCart.totalAmount;
 
     var index = 0;
@@ -94,7 +94,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       Navigator.push(
           (context),
           MaterialPageRoute(
-              builder: (context) => const SelectPaymentMethodScreen()));
+              builder: (context) => SelectPaymentMethodScreen(total: total,)));
     }
 
     TextEditingController controller = TextEditingController();

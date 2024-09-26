@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Confirm%20Order/paystack_web_page.dart';
+import 'package:quickwashers/services/services_service.dart';
 
 class SelectPaymentMethodScreen extends StatefulWidget {
-  const SelectPaymentMethodScreen({super.key});
+  final double total;
+  const SelectPaymentMethodScreen({super.key, required this.total});
 
   @override
   State<SelectPaymentMethodScreen> createState() =>
@@ -11,11 +13,32 @@ class SelectPaymentMethodScreen extends StatefulWidget {
 
 class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
   String paymentMethod = '';
+  ServicesService _servicesService = ServicesService();
+  String url = '';
+  bool isReady = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    isReady = false;
+  }
 
   void _updatePaymentMethod(String newMethod) {
     setState(() {
       paymentMethod = newMethod;
     });
+  }
+
+  void handleResponse() async {
+    Map<String, dynamic> response = await _servicesService.placeOrder(
+        method: paymentMethod,
+        location: 'location',
+        totalAmount: widget.total); // Await the Future
+    url = response['msg']!;
+    print(url);
+    isReady = true;
   }
 
   @override
@@ -54,11 +77,8 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
                       PaymentMethodButton(
                         label: 'Card / Mobile Money',
                         image: 'assets/images/Cash on delivery.png',
-                        onPressed: () =>
-                            _updatePaymentMethod('Card/ Mobile Money'),
-                        selected: paymentMethod == 'Card/ Mobile Money'
-                            ? true
-                            : false,
+                        onPressed: () => _updatePaymentMethod('card'),
+                        selected: paymentMethod == 'card' ? true : false,
                       ),
                       const SizedBox(
                         height: 20,
@@ -66,10 +86,9 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
                       PaymentMethodButton(
                         label: 'Cash on Delivery',
                         image: 'assets/images/Cash on delivery.png',
-                        onPressed: () =>
-                            _updatePaymentMethod('Cash on Delivery'),
+                        onPressed: () => _updatePaymentMethod('payOnDelivery'),
                         selected:
-                            paymentMethod == 'Cash on Delivery' ? true : false,
+                            paymentMethod == 'payOnDelivery' ? true : false,
                       ),
                       const SizedBox(
                         height: 40,
@@ -79,11 +98,21 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
                               elevation: 5, foregroundColor: Colors.blue),
                           onPressed: () {
                             // navigate();
-                            Navigator.push(
-                                (context),
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PaystackWebPage()));
+                            handleResponse();
+                            // var response = _servicesService.placeOrder(
+                            //     method: paymentMethod,
+                            //     location: 'location',
+                            //     totalAmount: widget.total);
+                            if (!isReady) return;
+
+                            if (paymentMethod == 'card') {
+                              Navigator.push(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (context) => PaystackWebPage(
+                                            url: url,
+                                          )));
+                            }
                           },
                           child: const SizedBox(
                               width: 240,

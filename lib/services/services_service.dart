@@ -7,6 +7,8 @@ import 'package:quickwashers/models/product_model.dart';
 import '../models/service_model.dart';
 import '../models/user_details.dart';
 
+String paymentUrl = '';
+
 class ServicesService {
   static const String baseUrl = 'https://laundry-main-1.onrender.com/';
 
@@ -81,8 +83,7 @@ class ServicesService {
 
     if (response.statusCode == 200) {
       final productData = json.decode(response.body);
-      return ProductModel.fromJson(
-          productData); 
+      return ProductModel.fromJson(productData);
     } else {
       throw Exception('Failed to load product');
     }
@@ -144,6 +145,98 @@ class ServicesService {
         'successful': true,
         'items': body['items'],
         'totalAmount': body['totalAmount'],
+      };
+    } else {
+      return {
+        'successful': false,
+        'msg': body['msg'],
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> placeOrder({
+    required String method,
+    required String location,
+    required double totalAmount,
+  }) async {
+    final url = Uri.parse('${baseUrl}api/orders/create');
+    print(currentUser.token);
+
+    List<Map<String, dynamic>> productsList = [];
+
+    userCart.products.entries.forEach((entry) {
+      productsList.add({
+        "product": entry.key,
+        "quantity": entry.value,
+      });
+    });
+
+    final response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${currentUser.token}',
+        },
+        body: jsonEncode({
+          // "customer": "64f3e4c8f75e3b001c73aef4",
+          'products': userCart.products.entries.map((entry) {
+            return {'product': entry.key, 'quantity': entry.value};
+          }).toList(),
+          'totalAmount': 319.96,
+          'status': 'pending',
+          'paymentMethod': method,
+          'location': '66d496c6bbc8651b3d8b5053',
+          // 'deliveryTime': "2024-09-05T14:30:00Z"
+        })
+
+//         body: jsonEncode({
+//     // "customer": "64f3e4c8f75e3b001c73aef4",
+//     "products": [
+//         {
+//             "product": "66d3097fb5d83a680725f6e6",
+//             "quantity": 2
+//         }
+//     ],
+//     "totalAmount": 150,
+//     "status": "pending",
+//     "paymentMethod": "card",
+//     "location": "66d496c6bbc8651b3d8b5053",
+//     "deliveryTime": "2024-09-05T14:30:00Z"
+// })
+        );
+
+    print(jsonEncode({
+      'products': userCart.products.entries.map((entry) {
+        return {
+          "product": entry.key,
+          "quantity": entry.value,
+        };
+      }).toList(),
+      'totalAmount': totalAmount,
+      'status': 'pending',
+      'paymentMethod': method,
+      'location': location,
+      // 'deliveryTime': deliveryTime,
+    }));
+    print(userCart.products.entries.map((entry) {
+      return {
+        "productId": entry.key,
+        "quantity": entry.value,
+      };
+    }).toList());
+
+    print(response.statusCode);
+    print(response.body);
+    final body = jsonDecode(response.body);
+
+    if (method == 'card') print(body['paymentUrl']);
+
+    paymentUrl = body['paymentUrl'];
+    
+    if (response.statusCode == 201) {
+      return {
+        'successful': true,
+        'msg': body[method == 'card' ? 'paymentUrl' : 'message'],
+        // 'totalAmount': body['totalAmount'],
       };
     } else {
       return {
