@@ -29,9 +29,6 @@ class _PaystackWebPageState extends State<PaystackWebPage> {
   @override
   void initState() {
     super.initState();
-
-    // openURL(Uri.parse(
-    //     'https://www.google.com/search?q=viewing+website+in+flutter+app&oq=viewing+website+in+flutter+app&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRifBdIBCTEzMzk1ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8'));
   }
 
   @override

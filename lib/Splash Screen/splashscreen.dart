@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:quickwashers/Home%20Page/homepage.dart';
+import 'package:quickwashers/Home%20Page/main_app_page.dart';
 import 'package:quickwashers/Splash%20Screen/lets_go_in.dart';
 import 'package:quickwashers/models/user_details.dart';
 import 'package:quickwashers/services/auth_service.dart';
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // retrieveData();
-    
+
     // _authService.setLocation(
     //     longitude: 6.6747, latitude: -1.5717, category: 'Home');
     // _authService.sendPasswordResetLink(phone: '0206452047');
@@ -30,8 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                currentUser.token == '' ? LetsGoIn() : const HomePage()),
+            builder: (context) => currentUser.token == ''
+                ? const LetsGoIn()
+                : const MainAppPage()),
+        // SelectOrderLocation()
+        // MyOrdersPage())
       );
     });
   }

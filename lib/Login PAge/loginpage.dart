@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickwashers/Home%20Page/homepage.dart';
+import 'package:quickwashers/Home%20Page/main_app_page.dart';
 import 'package:quickwashers/Login%20PAge/forgot_password_page.dart';
 import 'package:quickwashers/OTP%20Verification/otpverificationpage.dart';
 import 'package:quickwashers/SignUp%20Page/signuppage.dart';
@@ -42,8 +42,8 @@ class _LoginPageState extends State<LoginPage> {
       // Navigate to OTP page
       // currentUser.token = result['token'];
       currentUser.retrieveData();
-      Navigator.push(
-          (context), MaterialPageRoute(builder: (context) => const HomePage()));
+      Navigator.push((context),
+          MaterialPageRoute(builder: (context) => const MainAppPage()));
     } else {
       if (result['msg'] == "Account not verified") {
         currentUser.number = phoneController.text;
