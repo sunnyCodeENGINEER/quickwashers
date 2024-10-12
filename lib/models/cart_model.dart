@@ -46,7 +46,7 @@ String cartToJson(CartModel cart) {
   List<Map<String, dynamic>> productsList = cart.products.entries.map((entry) {
     return {
       "productId": entry.key,
-      "quantity": 2,
+      "quantity": entry.value,
     };
   }).toList();
 
