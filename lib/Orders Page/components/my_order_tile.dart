@@ -1,13 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+// import 'package:quickwashers/models/display_products.dart';
+import 'package:quickwashers/models/order_model.dart';
 
 class MyOrderTile extends StatefulWidget {
-  const MyOrderTile({super.key});
+  final OrderModel order;
+  // final List<DisplayProducts> products;
+  const MyOrderTile({
+    super.key,
+    required this.order,
+    // required this.products,
+  });
 
   @override
   State<MyOrderTile> createState() => _MyOrderTileState();
 }
 
 class _MyOrderTileState extends State<MyOrderTile> {
+  int productCount = 0;
+  List keys = [];
+  List quantity = [];
+
+  String formatDate(String isoDate) {
+    // Parse the ISO date string to DateTime
+    if (isoDate == "") return 'No date set';
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    // Format the date
+    String formattedDate = DateFormat('dd MMM, hh:mm a').format(dateTime);
+
+    return formattedDate;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    List k = widget.order.products.keys.toList();
+    List v = widget.order.products.values.toList();
+
+    productCount = k.length > 3 ? 3 : k.length;
+
+    int i = 0;
+
+    while ((i) < productCount) {
+      keys.add(k[i]);
+      quantity.add(v[i]);
+      i += 1;
+    }
+
+    print('$keys : $quantity');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,20 +64,20 @@ class _MyOrderTileState extends State<MyOrderTile> {
             BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
                 blurRadius: 10,
-                offset: Offset(3, 3)),
+                offset: const Offset(3, 3)),
             BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
                 blurRadius: 10,
-                offset: Offset(-3, -3))
+                offset: const Offset(-3, -3))
           ]),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             children: [
               Text(
-                'Delivery',
-                style: TextStyle(
+                widget.order.status == 'completed' ? 'Delivered' : 'Delivery',
+                style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue),
@@ -44,15 +88,15 @@ class _MyOrderTileState extends State<MyOrderTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Date',
-                style: TextStyle(
+                formatDate(widget.order.deliveryTime),
+                style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
               ),
               Text(
-                'Amount | MOMO',
-                style: TextStyle(
+                '${widget.order.totalAmount} | MOMO',
+                style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
@@ -61,38 +105,35 @@ class _MyOrderTileState extends State<MyOrderTile> {
           ),
           Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'item 1',
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                ...keys.map(
+                  (name) => Text(
+                    name,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    'item 2',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              SizedBox(
+                )
+              ]),
+              const SizedBox(
                 width: 10,
               ),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  'service',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                ),
-                Text(
-                  'service',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                )
-              ])
+              const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'service',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                    ),
+                    Text(
+                      'service',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                    )
+                  ])
             ],
           )
         ],

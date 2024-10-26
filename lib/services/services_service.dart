@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/models/product_model.dart';
 
+import '../models/order_model.dart';
 import '../models/service_model.dart';
 import '../models/user_details.dart';
 
@@ -186,23 +187,7 @@ class ServicesService {
           'paymentMethod': method,
           'location': '66d496c6bbc8651b3d8b5053',
           // 'deliveryTime': "2024-09-05T14:30:00Z"
-        })
-
-//         body: jsonEncode({
-//     // "customer": "64f3e4c8f75e3b001c73aef4",
-//     "products": [
-//         {
-//             "product": "66d3097fb5d83a680725f6e6",
-//             "quantity": 2
-//         }
-//     ],
-//     "totalAmount": 150,
-//     "status": "pending",
-//     "paymentMethod": "card",
-//     "location": "66d496c6bbc8651b3d8b5053",
-//     "deliveryTime": "2024-09-05T14:30:00Z"
-// })
-        );
+        }));
 
     print(jsonEncode({
       'products': userCart.products.entries.map((entry) {
@@ -231,7 +216,7 @@ class ServicesService {
     if (method == 'card') print(body['paymentUrl']);
 
     paymentUrl = body['paymentUrl'];
-    
+
     if (response.statusCode == 201) {
       return {
         'successful': true,
@@ -243,6 +228,39 @@ class ServicesService {
         'successful': false,
         'msg': body['msg'],
       };
+    }
+  }
+
+  Future<List<OrderModel>> retrieveOrders() async {
+    final url = Uri.parse('${baseUrl}api/orders/');
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${currentUser.token}',
+      },
+    );
+
+    print(response.statusCode);
+    print(response.body);
+
+    // Decode response body into a List of dynamic
+    final List<dynamic> body = jsonDecode(response.body);
+
+    // Convert the List<dynamic> to List<OrderModel>
+    List<OrderModel> orders =
+        body.map((data) => OrderModel.fromJson(data)).toList();
+
+    userOrders = orders;
+
+    print('user orders: ${userOrders[0].products}');
+
+    if (response.statusCode == 200) {
+      return userOrders;
+    } else {
+      // Handle error case
+      return [];
     }
   }
 }

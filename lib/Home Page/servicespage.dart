@@ -23,7 +23,7 @@ class _ServicesPageState extends State<ServicesPage> {
   @override
   void initState() {
     super.initState();
-    var newCart = ServicesService().retrieveCart();
+    var _ = ServicesService().retrieveCart();
     // userCart.products = newCart.items;
 
     futureProducts =
@@ -34,7 +34,7 @@ class _ServicesPageState extends State<ServicesPage> {
   }
 
   void updateUserCart() async {
-    var response = _servicesService.updateCart();
+    var _ = _servicesService.updateCart();
     Navigator.pop(context);
   }
 
