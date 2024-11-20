@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quickwashers/Orders%20Page/tracking_order_page.dart';
 // import 'package:quickwashers/models/display_products.dart';
 import 'package:quickwashers/models/order_model.dart';
 
@@ -70,73 +71,83 @@ class _MyOrderTileState extends State<MyOrderTile> {
                 blurRadius: 10,
                 offset: const Offset(-3, -3))
           ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                widget.order.status == 'completed' ? 'Delivered' : 'Delivery',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                formatDate(widget.order.deliveryTime),
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey),
-              ),
-              Text(
-                '${widget.order.totalAmount} | MOMO',
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                ...keys.map(
-                  (name) => Text(
-                    name,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      TrackingOrderPage(order: widget.order)));
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  widget.order.status == 'completed' ? 'Delivered' : 'Delivery',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  formatDate(widget.order.deliveryTime),
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+                ),
+                Text(
+                  '${widget.order.totalAmount} | MOMO',
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
                 )
-              ]),
-              const SizedBox(
-                width: 10,
-              ),
-              const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'service',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
+              ],
+            ),
+            Row(
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  ...keys.map(
+                    (name) => Text(
+                      name,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      'service',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey),
-                    )
-                  ])
-            ],
-          )
-        ],
+                  )
+                ]),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'service',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        'service',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                      )
+                    ])
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
