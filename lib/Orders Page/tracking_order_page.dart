@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quickwashers/Orders%20Page/current_order_details.dart';
 
 import '../models/order_model.dart';
 
@@ -237,49 +238,61 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
           ),
           const Spacer(),
           Container(
-            height: 60,
-            // width: 200,
-            margin: const EdgeInsets.symmetric(horizontal: 60),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Row(
-              children: [
-                Text(
-                  'GHs ${widget.order.totalAmount} | ${widget.order.payment == 'unpaid' ? 'COD' : 'MOMO'}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                const Spacer(),
-                Container(
-                  height: 40,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const Row(
-                    children: [
-                      Text(
-                        'View Orders',
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+              height: 60,
+              // width: 200,
+              margin: const EdgeInsets.symmetric(horizontal: 60),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CurrentOrderDetails(order: widget.order)));
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      'GHs ${widget.order.totalAmount} | ${widget.order.payment == 'unpaid' ? 'COD' : 'MOMO'}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    const Spacer(),
+                    Container(
+                      height: 60,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      Icon(
-                        Icons.chevron_right_rounded,
-                        color: Colors.blue,
-                        size: 10,
-                      )
-                    ],
-                  ),
+                      child: const Row(
+                        children: [
+                          Text(
+                            'View Orders',
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Icon(
+                            Icons.chevron_right_rounded,
+                            color: Colors.blue,
+                            size: 10,
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    )
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
+              )),
+          const SizedBox(
+            height: 20,
           )
         ],
       ),

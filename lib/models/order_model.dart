@@ -1,3 +1,5 @@
+import 'package:quickwashers/models/my_order_product_info.dart';
+
 class OrderModel {
   final Map<String, int> products;
   final double totalAmount;
@@ -8,6 +10,7 @@ class OrderModel {
   final String deliveryTime;
   final String createdAt;
   final String updatedAt;
+  final List<MyOrderProductInfo> productInfo;
 
   OrderModel({
     required this.products,
@@ -19,28 +22,39 @@ class OrderModel {
     required this.deliveryTime,
     required this.createdAt,
     required this.updatedAt,
+    required this.productInfo,
   });
 
   // Factory method to create an OrderModel from JSON
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     // Create a Map<String, int> from the list of products
     final productsMap = <String, int>{};
+    final List<MyOrderProductInfo> productsInfo = [];
+
     for (var item in json['products']) {
       productsMap[item['product']['_id']] = item['quantity'];
+      final productInfo = MyOrderProductInfo(
+          id: item['product']['_id'],
+          name: item['product']['name'],
+          price: item['product']['price'],
+          service: item['product']['service'],
+          quantity: item['quantity'] ?? 0);
+
+      productsInfo.add(productInfo);
     }
 
     return OrderModel(
-      products: productsMap,
-      totalAmount: json['totalAmount'].toDouble(),
-      status: json['status'],
-      paymentStatus: json['paymentStatus'],
-      payment: json['payment'] ??
-          'unpaid', // If payment field is missing, default to 'unpaid'
-      location: json['location']['name'],
-      deliveryTime: json['deliveryTime'] ?? '',
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-    );
+        products: productsMap,
+        totalAmount: json['totalAmount'].toDouble(),
+        status: json['status'],
+        paymentStatus: json['paymentStatus'],
+        payment: json['payment'] ??
+            'unpaid', // If payment field is missing, default to 'unpaid'
+        location: json['location']['name'],
+        deliveryTime: json['deliveryTime'] ?? '',
+        createdAt: json['createdAt'],
+        updatedAt: json['updatedAt'],
+        productInfo: productsInfo);
   }
 }
 
