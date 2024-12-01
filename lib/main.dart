@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
-
 import 'package:quickwashers/Splash%20Screen/splashscreen.dart';
+import 'package:quickwashers/Theme%20Data/theme_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        fontFamily: 'HvDTrialBrandonText'
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+          fontFamily: 'HvDTrialBrandonText'
+          ),
+      darkTheme: darkTheme,
       // home: const SplashScreen(),
       home: const SplashScreen(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),

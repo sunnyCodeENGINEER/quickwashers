@@ -12,7 +12,7 @@ class SelectPaymentMethodScreen extends StatefulWidget {
 }
 
 class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
-  String paymentMethod = '';
+  String paymentMethod = 'card';
   ServicesService _servicesService = ServicesService();
   String url = '';
   bool isReady = false;
@@ -154,7 +154,7 @@ class _PaymentMethodButtonState extends State<PaymentMethodButton> {
       child: ElevatedButton(
           onPressed: widget.onPressed,
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black,
+            // foregroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               side: BorderSide(
                   width: 2, color: widget.selected ? Colors.blue : Colors.grey),

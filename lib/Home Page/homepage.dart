@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           SizedBox(
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(
                 prefixIconColor: const Color.fromARGB(255, 55, 55, 55),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.grey.withOpacity(0.3),
                 prefixIcon: const Icon(Icons.search),
                 hintText: 'Search Laundry Service',
                 border: OutlineInputBorder(
@@ -260,8 +260,7 @@ class OurOffersTile extends StatelessWidget {
                 children: [
                   const Text(
                     'Flat 50% off on First Order',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: [
@@ -303,7 +302,7 @@ class ServiceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Colors.grey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Center(

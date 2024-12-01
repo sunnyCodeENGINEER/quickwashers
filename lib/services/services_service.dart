@@ -215,7 +215,7 @@ class ServicesService {
 
     if (method == 'card') print(body['paymentUrl']);
 
-    paymentUrl = body['paymentUrl'];
+    paymentUrl = body['paymentUrl'] ?? '';
 
     if (response.statusCode == 201) {
       return {

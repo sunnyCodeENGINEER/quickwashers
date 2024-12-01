@@ -41,9 +41,10 @@ class _LocationDropDownMenuState extends State<LocationDropDownMenu> {
       menuWidth: 120,
       isExpanded: false,
       style: TextStyle(
-          fontSize: widget.home ? 24 : 16,
-          fontWeight: FontWeight.bold,
-          color: widget.home ? Colors.black : Colors.blue),
+        fontSize: widget.home ? 24 : 16,
+        fontWeight: FontWeight.bold,
+        color: widget.home ? Colors.black : Colors.blue,
+      ),
       underline: const SizedBox.shrink(),
       onChanged: (String? newValue) {
         setState(() {

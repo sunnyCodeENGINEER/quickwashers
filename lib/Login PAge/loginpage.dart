@@ -42,8 +42,11 @@ class _LoginPageState extends State<LoginPage> {
       // Navigate to OTP page
       // currentUser.token = result['token'];
       currentUser.retrieveData();
-      Navigator.push((context),
-          MaterialPageRoute(builder: (context) => const MainAppPage()));
+      Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => const MainAppPage()),
+        (Route<dynamic> route) => false,
+      );
     } else {
       if (result['msg'] == "Account not verified") {
         currentUser.number = phoneController.text;

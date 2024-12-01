@@ -89,6 +89,7 @@ class AuthService {
       // Save token in shared preferences for persistent login
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', body['token']);
+      storeData();
       return {
         'successful': true,
         'user': body['user'],
@@ -121,7 +122,6 @@ class AuthService {
     final body = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      
       return {
         'successful': true,
         'msg': body['msg'],
@@ -132,6 +132,30 @@ class AuthService {
         'successful': false,
         'msg': body['msg'],
       };
+    }
+  }
+
+  static Future<UserDetail> fetchUserProfile() async {
+    final url = Uri.parse('${baseUrl}api/auth/get-profile');
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${currentUser.token}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return UserDetail(
+        name: data['name'],
+        number: data['phone'],
+        email: data['email'],
+        token: currentUser.token,
+      );
+    } else {
+      throw Exception('Failed to load user profile');
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/homepage.dart';
 import 'package:quickwashers/Orders%20Page/my_orders_page.dart';
+import 'package:quickwashers/Profile%20Page/my_account_screen.dart';
 
 class MainAppPage extends StatefulWidget {
   const MainAppPage({super.key});
@@ -14,7 +15,7 @@ class _MainAppPageState extends State<MainAppPage> {
   final List<Widget> _screens = [
     const HomePage(),
     const MyOrdersPage(),
-    const Placeholder(),
+    const MyAccountScreen(),
   ];
 
   void _onTabTapped(int index) {

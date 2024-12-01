@@ -23,12 +23,15 @@ class _PaystackWebPageState extends State<PaystackWebPage> {
       await launchUrl(url);
     } catch (e) {
       print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Can not process request.')));
     }
   }
 
   @override
   void initState() {
     super.initState();
+    print('here');
   }
 
   @override
@@ -36,9 +39,8 @@ class _PaystackWebPageState extends State<PaystackWebPage> {
     return Scaffold(
       appBar: AppBar(),
       body: WebView(
-        initialUrl:
-            widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
+        initialUrl: widget.url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

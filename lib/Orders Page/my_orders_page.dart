@@ -26,12 +26,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-        ),
         title: const Text(
           'My Orders',
           style: TextStyle(fontWeight: FontWeight.bold),

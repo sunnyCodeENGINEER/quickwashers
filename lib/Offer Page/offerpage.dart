@@ -8,7 +8,7 @@ class OfferPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Current Offers"),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.chevron_left),
@@ -26,7 +26,7 @@ class OfferPage extends StatelessWidget {
               decoration: InputDecoration(
                 prefixIconColor: Colors.grey,
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.grey.withOpacity(0.3),
                 prefixIcon: const Icon(Icons.search),
                 hintText: 'Search Offer',
                 border: OutlineInputBorder(
@@ -70,6 +70,7 @@ class OfferPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 20),
+                                  backgroundColor: Colors.white,
                                   foregroundColor: Colors.blue),
                               child: const Text('Order'),
                             ),

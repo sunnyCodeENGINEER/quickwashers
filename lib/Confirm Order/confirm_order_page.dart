@@ -16,6 +16,7 @@ class ConfirmOrderPage extends StatefulWidget {
 class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   double total = 0.00;
   double deliveryFee = 32.00;
+  Future<Map<String, dynamic>> cart = ServicesService().retrieveCart();
 
   Map<String, Future<ProductModel>> productCache = {};
 
@@ -23,7 +24,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
 
-    var newCart = ServicesService().retrieveCart();
+    // var newCart = ServicesService().retrieveCart();
     total = userCart.totalAmount;
 
     var index = 0;
@@ -94,7 +95,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       Navigator.push(
           (context),
           MaterialPageRoute(
-              builder: (context) => SelectPaymentMethodScreen(total: total,)));
+              builder: (context) => SelectPaymentMethodScreen(
+                    total: total,
+                  )));
     }
 
     TextEditingController controller = TextEditingController();
@@ -211,7 +214,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               height: 78,
 
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 243, 241, 241),
+                  color: Colors.grey.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(8)),
               child: TextField(
                 controller: controller,
@@ -255,7 +258,28 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     children: [
                       const Text('Sub Total'),
                       const Spacer(),
-                      Text('GHs ${total.toStringAsFixed(2)}')
+                      FutureBuilder<Map>(
+                          future: cart, // Use the cached future or API call
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child:
+                                      CircularProgressIndicator()); // Show a loader while fetching
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                  child: Text(
+                                      'Error: ${snapshot.error}')); // Handle error
+                            } else if (!snapshot.hasData) {
+                              return const Center(
+                                  child: Text('No product found'));
+                            } else {
+                              // When product data is successfully fetched
+                              final item = snapshot.data!;
+                              return Text(
+                                  'GHs ${item['totalAmount'].toStringAsFixed(2)}');
+                            }
+                          })
                     ],
                   ),
                   Row(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Home%20Page/main_app_page.dart';
 import 'package:quickwashers/Splash%20Screen/lets_go_in.dart';
+import 'package:quickwashers/Theme%20Data/theme_data.dart';
 import 'package:quickwashers/models/user_details.dart';
 import 'package:quickwashers/services/auth_service.dart';
 
@@ -19,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    retrieveData();
+    loadThemePreference();
+    // retrieveData();
 
     // _authService.setLocation(
     //     longitude: 6.6747, latitude: -1.5717, category: 'Home');
