@@ -32,11 +32,25 @@ class _MainAppPageState extends State<MainAppPage> {
         selectedItemColor: Colors.blue,
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+              icon: Image.asset(
+                'assets/images/elements (1).png',
+                color: _currentIndex == 0 ? Colors.blue : Colors.grey,
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/Order Icon.png',
+                color: _currentIndex == 1 ? Colors.blue : Colors.grey,
+              ),
+              label: 'Orders'),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/user Icon.png',
+                color: _currentIndex == 2 ? Colors.blue : Colors.grey,
+              ),
+              label: 'Profile'),
         ],
       ),
     );

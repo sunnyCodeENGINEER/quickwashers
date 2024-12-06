@@ -172,6 +172,8 @@ class ServicesService {
       });
     });
 
+    print(pickUpLocation);
+
     final response = await http.post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -182,32 +184,47 @@ class ServicesService {
           'products': userCart.products.entries.map((entry) {
             return {'product': entry.key, 'quantity': entry.value};
           }).toList(),
-          'totalAmount': 319.96,
-          'status': 'pending',
+          // 'totalAmount': 319.96,
+          // 'status': 'pending',
           'paymentMethod': method,
-          'location': '66d496c6bbc8651b3d8b5053',
+          // 'location': '66d496c6bbc8651b3d8b5053',
+          'pickuplocationCategory': pickUpLocation,
+          'deliverylocationCategory': dropOffLocation,
+          'pickupTime': '2024-08-31T12:15:59.539Z',
+          'deliveryTime': '2024-08-31T12:15:59.539Z'
           // 'deliveryTime': "2024-09-05T14:30:00Z"
         }));
 
     print(jsonEncode({
+      // "customer": "64f3e4c8f75e3b001c73aef4",
       'products': userCart.products.entries.map((entry) {
-        return {
-          "product": entry.key,
-          "quantity": entry.value,
-        };
+        return {'product': entry.key, 'quantity': entry.value};
       }).toList(),
-      'totalAmount': totalAmount,
-      'status': 'pending',
+      // 'totalAmount': 319.96,
+      // 'status': 'pending',
       'paymentMethod': method,
-      'location': location,
-      // 'deliveryTime': deliveryTime,
+      // 'location': '66d496c6bbc8651b3d8b5053',
+      'pickUplocationCategory': pickUpLocation,
+      'deliveryLocationCategory': dropOffLocation,
+      'pickUpTime': '2024-12-2T12:15:59.539Z',
+      'deliveryTime': '2024-12-3T12:15:59.539Z'
+      // 'deliveryTime': "2024-09-05T14:30:00Z"
     }));
-    print(userCart.products.entries.map((entry) {
-      return {
-        "productId": entry.key,
-        "quantity": entry.value,
-      };
-    }).toList());
+    print(jsonEncode({
+      // "customer": "64f3e4c8f75e3b001c73aef4",
+      'products': userCart.products.entries.map((entry) {
+        return {'product': entry.key, 'quantity': entry.value};
+      }).toList(),
+      // 'totalAmount': 319.96,
+      // 'status': 'pending',
+      'paymentMethod': method,
+      // 'location': '66d496c6bbc8651b3d8b5053',
+      'pickupLocationCategory': pickUpLocation,
+      'deliveryLocationCategory': dropOffLocation,
+      'pickupTime': '2024-08-31T12:15:59.539Z',
+      'deliveryTime': '2024-08-31T12:15:59.539Z'
+      // 'deliveryTime': "2024-09-05T14:30:00Z"
+    }));
 
     print(response.statusCode);
     print(response.body);
@@ -242,12 +259,9 @@ class ServicesService {
       },
     );
 
-    print('===========here');
-    print(response.statusCode);
-    print(response.body);
-
     // Decode response body into a List of dynamic
     final List<dynamic> body = jsonDecode(response.body);
+    print(body);
 
     // Convert the List<dynamic> to List<OrderModel>
     List<OrderModel> orders =

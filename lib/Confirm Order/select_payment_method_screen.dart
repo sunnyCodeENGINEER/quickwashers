@@ -97,12 +97,8 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
                           style: ElevatedButton.styleFrom(
                               elevation: 5, foregroundColor: Colors.blue),
                           onPressed: () {
-                            // navigate();
                             handleResponse();
-                            // var response = _servicesService.placeOrder(
-                            //     method: paymentMethod,
-                            //     location: 'location',
-                            //     totalAmount: widget.total);
+                            
                             if (!isReady) return;
 
                             if (paymentMethod == 'card') {

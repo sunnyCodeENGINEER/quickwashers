@@ -27,6 +27,7 @@ class OrderModel {
 
   // Factory method to create an OrderModel from JSON
   factory OrderModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     // Create a Map<String, int> from the list of products
     final productsMap = <String, int>{};
     final List<MyOrderProductInfo> productsInfo = [];

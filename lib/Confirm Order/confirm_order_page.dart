@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Confirm%20Order/components/order_row.dart';
-import 'package:quickwashers/Confirm%20Order/select_payment_method_screen.dart';
+import 'package:quickwashers/Confirm%20Order/select_order_location.dart';
 import 'package:quickwashers/models/cart_model.dart';
 import 'package:quickwashers/services/services_service.dart';
 
@@ -24,7 +24,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
 
-    // var newCart = ServicesService().retrieveCart();
+    var _ = ServicesService().retrieveCart();
     total = userCart.totalAmount;
 
     var index = 0;
@@ -92,12 +92,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   Widget build(BuildContext context) {
     void navigate() {
-      Navigator.push(
-          (context),
-          MaterialPageRoute(
-              builder: (context) => SelectPaymentMethodScreen(
-                    total: total,
-                  )));
+      Navigator.push((context),
+          MaterialPageRoute(builder: (context) => const SelectOrderLocation()));
     }
 
     TextEditingController controller = TextEditingController();
@@ -122,42 +118,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  child:
-
-                      // ListView.builder(
-                      //     itemCount: userCart.products.length,
-                      //     itemBuilder: (context, index) {
-                      //       List<String> keys = userCart.products.keys.toList();
-                      //       final id = keys[index];
-                      //       ProductModel item = ProductModel(
-                      //           id: '00',
-                      //           name: 'name',
-                      //           description: '',
-                      //           service: Services(id: 'id', name: 'Wash Only'),
-                      //           productType: '',
-                      //           price: 0.00,
-                      //           imageUrl: '',
-                      //           available: true,
-                      //           createdAt: '',
-                      //           updatedAt: '');
-                      //       for (var i in testShop) {
-                      //         if (i.id == id) {
-                      //           item = i;
-                      //         }
-                      //       }
-
-                      //       print(userCart.products[id]);
-
-                      //       print(total);
-
-                      //       // return ProductRow(
-                      //       //   item: item,
-                      //       //   onPressed: updateTotal,
-                      //       // );
-                      //       return OrderRow(item: item, total: total);
-                      //     }),
-
-                      ListView.builder(
+                  child: ListView.builder(
                 itemCount: userCart.products.length,
                 itemBuilder: (context, index) {
                   List<String> keys = userCart.products.keys.toList();
@@ -286,7 +247,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     children: [
                       const Text('Delivery Fees'),
                       const Spacer(),
-                      Text('GHs ${deliveryFee.toStringAsFixed(2)}')
+                      Text('GHs $total')
                     ],
                   ),
                   const SizedBox(

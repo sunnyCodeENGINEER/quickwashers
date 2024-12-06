@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Profile%20Page/pages/terms_and_conditions_page.dart';
 import 'package:quickwashers/Settings%20Page/settings_page.dart';
+import 'package:quickwashers/Splash%20Screen/splashscreen.dart';
 import 'package:quickwashers/Support%20Page/support_page.dart';
 import 'package:quickwashers/models/user_details.dart';
 import 'package:quickwashers/services/auth_service.dart';
@@ -117,7 +118,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ],
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
                           InkWell(
                             onTap: () {
@@ -144,7 +145,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
                           InkWell(
                             onTap: () {
@@ -170,7 +171,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
                           InkWell(
                             onTap: () {
@@ -196,21 +197,33 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 50,
                           ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                  'assets/images/streamline_logout-1-solid.png'),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              const Text(
-                                'Logout',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              )
-                            ],
+                          InkWell(
+                            onTap: () {
+                              clearAllData();
+                              Navigator.pushAndRemoveUntil(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SplashScreen()),
+                                  (Route<dynamic> route) => false);
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                    'assets/images/streamline_logout-1-solid.png'),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )
+                              ],
+                            ),
                           ),
                         ],
                       ),

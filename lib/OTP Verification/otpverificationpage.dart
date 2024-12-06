@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quickwashers/Login%20PAge/loginpage.dart';
@@ -29,6 +31,27 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
       List.generate(6, (_) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
 
+  late Timer _timer;
+  int _remainingSeconds = 30;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+        } else {
+          _timer.cancel(); // Stop the timer when it reaches 0
+        }
+      });
+    });
+  }
+
   @override
   void dispose() {
     // Dispose all controllers and focus nodes when not needed
@@ -38,7 +61,10 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     for (var focusNode in _focusNodes) {
       focusNode.dispose();
     }
+
+    _timer.cancel(); // Ensure the timer is stopped when the widget is disposed
     super.dispose();
+    // super.dispose();
   }
 
   void _onChanged(int index, String value) {
@@ -211,12 +237,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             // TextField(
             //   controller: _code,
             // ),
-            !widget.reset
-                ? Container()
-                : TextField(
-                    controller: _newPassword,
-                    obscureText: true,
-                  ),
+
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -224,44 +245,70 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                 const Text("Didn't get code? "),
                 GestureDetector(
                   onTap: () {
-                    _authService.resendCode();
+                    if (_remainingSeconds < 1) {
+                      setState(() {
+                        _remainingSeconds = 60;
+                        _startTimer();
+                      });
+                      _authService.resendCode();
+                    }
                   },
-                  child: const Text(
+                  child: Text(
                     "Resend",
                     style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
+                        color:
+                            _remainingSeconds < 1 ? Colors.blue : Colors.grey,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  '0:30s',
-                  style: TextStyle(color: Colors.grey),
+                Text(
+                  '0:${_remainingSeconds.toString().padLeft(2, '0')}s',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 40,
+            ),
+            !widget.reset
+                ? Container()
+                : Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextField(
+                      controller: _newPassword,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        prefixIcon: SizedBox(
+                            width: 18,
+                            child: Image.asset(
+                              'assets/images/circle-password.png',
+                              width: 20,
+                              color: Colors.blue,
+                            )),
+                        hintText: 'Password',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ),
             const SizedBox(height: 20),
             const SizedBox(height: 30),
             Row(children: [
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                  // print(getToken());
-                  // authService.verifyUser(
-                  //     phone: currentUser.number, verificationCode: _code.text);
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const HomePage()),
-                  //   (Route<dynamic> route) => false,
-                  // );
-                  print(_code.text);
-
                   widget.reset ? _setNewPassword() : _verify();
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size(140, 44),
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white),
-                child: const Text('Continue'),
+                child: const Text('Reset Password'),
               ),
               const Spacer()
             ]),

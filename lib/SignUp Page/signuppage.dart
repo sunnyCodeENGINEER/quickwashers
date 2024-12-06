@@ -98,62 +98,96 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             const Text(
               'Hello, nice to\nmeet you.',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                hintText: 'Full Name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            const Text('Fill the details below to get started.'),
+            const SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  hintText: 'Full Name',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _numberController,
-              decoration: InputDecoration(
-                hintText: 'Phone Number',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: _numberController,
+                decoration: InputDecoration(
+                  hintText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                hintText: 'Email Address',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  hintText: 'Email Address',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.password),
-                hintText: 'Create a password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  prefixIcon: Image.asset('assets/images/circle-password.png'),
+                  hintText: 'Create a password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _repeatPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.password),
-                hintText: 'Repeat your password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: _repeatPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  prefixIcon: Image.asset('assets/images/circle-password.png'),
+                  hintText: 'Repeat your password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
+            const SizedBox(height: 20),
+            const Text('We’ll send verification code to the above number'),
             const SizedBox(height: 20),
             Center(
               child: isLoading
@@ -181,10 +215,20 @@ class _SignUpPageState extends State<SignUpPage> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: const Text(
-                  'Already have an account? LOGIN',
-                  style: TextStyle(
-                      color: Colors.blue, fontWeight: FontWeight.bold),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      ' LOGIN',
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ),

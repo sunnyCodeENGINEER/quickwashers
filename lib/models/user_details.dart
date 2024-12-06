@@ -60,10 +60,19 @@ Future<void> retrieveData() async {
 }
 
 Future<void> storeData() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('username', currentUser.name);
+  await prefs.setString('number', currentUser.number);
+  await prefs.setString('email', currentUser.email);
+  await prefs.setString('token', currentUser.token);
+}
+
+Future<void> clearAllData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', currentUser.name);
-    await prefs.setString('number', currentUser.number);
-    await prefs.setString('email', currentUser.email);
-    await prefs.setString('token', currentUser.token);
+    await prefs.clear();
   }
 
+String pickUpLocation = 'Home';
+String dropOffLocation = 'Home';
+String pickUpTime = 'Home';
+String dropOffTime = '';

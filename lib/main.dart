@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'HvDTrialBrandonText'
           ),
       darkTheme: darkTheme,
-      // home: const SplashScreen(),
+      
       home: const SplashScreen(),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      
     );
   }
 }

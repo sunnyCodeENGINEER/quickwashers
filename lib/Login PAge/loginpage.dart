@@ -102,7 +102,14 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Row(
-          children: [Spacer(), Text('Welcome Back'), Spacer()],
+          children: [
+            Spacer(),
+            Text(
+              'Welcome Back',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Spacer()
+          ],
         ),
       ),
       body: Padding(
@@ -118,28 +125,46 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
             const SizedBox(height: 20),
-            TextField(
-              controller: phoneController,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.phone),
-                hintText: 'GH +233 55 369 6305',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.phone),
+                  hintText: 'GH +233 55 369 6305',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.password),
-                hintText: 'password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  prefixIcon: SizedBox(
+                      width: 18,
+                      child: Image.asset(
+                        'assets/images/circle-password.png',
+                        width: 20,
+                        color: Colors.blue,
+                      )),
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
               ),
             ),
@@ -180,10 +205,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         login();
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => OTPVerificationPage()));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue),
@@ -215,19 +236,23 @@ class _LoginPageState extends State<LoginPage> {
                   MaterialPageRoute(builder: (context) => const SignUpPage()),
                 );
               },
-              child: const Text(
-                'New to us? REGISTER',
-                style:
-                    TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'New to us?',
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    ' REGISTER',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
-            // const SizedBox(height: 16.0),
-            // isLoading
-            //     ? const CircularProgressIndicator()
-            //     : ElevatedButton(
-            //         onPressed: login,
-            //         child: const Text('Login'),
-            //       ),
+
             if (errorMessage.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(8.0),

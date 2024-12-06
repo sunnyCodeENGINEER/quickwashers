@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 
 class LocationDropDownMenu extends StatefulWidget {
   final bool home;
-  const LocationDropDownMenu({super.key, required this.home});
+  String value;
+  LocationDropDownMenu({
+    super.key,
+    required this.home,
+    required this.value,
+  });
 
   @override
   State<LocationDropDownMenu> createState() => _LocationDropDownMenuState();
@@ -49,6 +54,7 @@ class _LocationDropDownMenuState extends State<LocationDropDownMenu> {
       onChanged: (String? newValue) {
         setState(() {
           selectedValue = newValue;
+          widget.value = newValue ?? 'Home';
         });
       },
       items: items.map<DropdownMenuItem<String>>((String value) {

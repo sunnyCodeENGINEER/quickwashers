@@ -32,6 +32,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String location = '';
+
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox(
@@ -45,10 +47,11 @@ class _HomePageState extends State<HomePage> {
               },
               icon: Image.asset('assets/images/location Icon.png')),
         ),
-        title: const Row(
+        title: Row(
           children: [
             LocationDropDownMenu(
               home: true,
+              value: location,
             ),
           ],
         ),
@@ -168,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, // 2 columns
-                          childAspectRatio: 3 / 2, // Aspect ratio for each item
+                          // childAspectRatio: 3 / 2, // Aspect ratio for each item
                           crossAxisSpacing: 10, // Space between columns
                           mainAxisSpacing: 10, // Space between rows
                         ),
@@ -301,6 +304,8 @@ class ServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // padding: const EdgeInsets.all(20),
+      height: 100,
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(25.0),

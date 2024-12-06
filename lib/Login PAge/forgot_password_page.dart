@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quickwashers/OTP%20Verification/otpverificationpage.dart';
 import 'package:quickwashers/services/auth_service.dart';
@@ -15,6 +17,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   bool isLoading = false;
   String errorMessage = '';
+
+  late Timer _timer;
+  int _remainingSeconds = 30;
+
+ 
 
   void forgotPassword() async {
     setState(() {
@@ -82,14 +89,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
             SizedBox(
               width: 328,
-              child: TextField(
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
-                  hintText: 'GH +233 55 369 6305',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextField(
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.phone),
+                    hintText: 'GH +233 55 369 6305',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               ),
@@ -97,26 +110,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-              onPressed: () {
-                forgotPassword();
-                // _authService.sendPasswordResetLink(phone: phoneController.text);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => OTPVerificationPage(
-                //             phone: phoneController.text,
-                //             reset: true,
-                //           )),
-                // (Route<dynamic> route) => false,
-                // );
-              },
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(140, 44),
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white),
-              child: const Text('Continue'),
-            ),
+            isLoading
+                ? const CircularProgressIndicator(
+                    color: Colors.blue,
+                  )
+                : ElevatedButton(
+                    onPressed: () {
+                      forgotPassword();
+                      // _authService.sendPasswordResetLink(phone: phoneController.text);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => OTPVerificationPage(
+                      //             phone: phoneController.text,
+                      //             reset: true,
+                      //           )),
+                      // (Route<dynamic> route) => false,
+                      // );
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(140, 44),
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white),
+                    child: const Text('Continue'),
+                  ),
           ],
         ),
       ),

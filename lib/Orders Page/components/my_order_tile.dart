@@ -68,7 +68,7 @@ class _MyOrderTileState extends State<MyOrderTile> {
 
     List<MyOrderProductInfo> products = widget.order.productInfo;
 
-    print('K: $k');
+    // print('K: $k');
 
     // get products from ids
 
@@ -87,10 +87,10 @@ class _MyOrderTileState extends State<MyOrderTile> {
       i += 1;
     }
 
-    print('$keys : $quantity');
+    // print('$keys : $quantity');
   }
 
-  // @override
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
