@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+ThemeMode themeMode = ThemeMode.light;
+
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Colors.blue,
@@ -12,7 +14,7 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.teal,
+  primaryColor: Colors.blue,
   scaffoldBackgroundColor: Colors.black,
   textTheme: const TextTheme(
     bodyMedium: TextStyle(color: Colors.white),

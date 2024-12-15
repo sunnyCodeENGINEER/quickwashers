@@ -5,12 +5,14 @@ class UserDetail {
   String number;
   String email;
   String token;
+  String id;
 
   UserDetail(
       {required this.name,
       required this.number,
       required this.email,
-      required this.token});
+      required this.token,
+      required this.id});
 
   Future<void> storeData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,6 +33,7 @@ class UserDetail {
     print('number: $number');
     print('Username: $name');
     print('Token: $token');
+    print('id: $id');
   }
 
   Future<void> clearAllData() async {
@@ -44,6 +47,7 @@ UserDetail currentUser = UserDetail(
   number: '',
   email: '',
   token: '',
+  id: '',
 );
 
 Future<void> retrieveData() async {
@@ -53,10 +57,12 @@ Future<void> retrieveData() async {
   currentUser.number = prefs.getString('number') ?? '';
   currentUser.email = prefs.getString('email') ?? '';
   currentUser.token = prefs.getString('token') ?? '';
+  currentUser.id = prefs.getString('id') ?? '';
 
   print('number: ${currentUser.number}');
   print('Username: ${currentUser.name}');
   print('Token: ${currentUser.token}');
+  print('id: ${currentUser.id}');
 }
 
 Future<void> storeData() async {
@@ -65,12 +71,13 @@ Future<void> storeData() async {
   await prefs.setString('number', currentUser.number);
   await prefs.setString('email', currentUser.email);
   await prefs.setString('token', currentUser.token);
+  await prefs.setString('id', currentUser.id);
 }
 
 Future<void> clearAllData() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+}
 
 String pickUpLocation = 'Home';
 String dropOffLocation = 'Home';

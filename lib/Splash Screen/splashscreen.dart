@@ -23,10 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
     loadThemePreference();
     retrieveData();
 
-    // _authService.setLocation(
-    //     longitude: 6.6747, latitude: -1.5717, category: 'Home');
-    // _authService.sendPasswordResetLink(phone: '0206452047');
-
     // Start a timer that will navigate to LoginPage after 3 seconds
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(

@@ -51,7 +51,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       print(userCart.products.keys.toList());
 
       setState(() {
-        total = total + item.price * userCart.products[id]!;
+        // total = total + item.price * userCart.products[id]!;
       });
       index += 1;
     }
@@ -247,7 +247,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     children: [
                       const Text('Delivery Fees'),
                       const Spacer(),
-                      Text('GHs $total')
+                      Text('GHs $deliveryFee')
                     ],
                   ),
                   const SizedBox(

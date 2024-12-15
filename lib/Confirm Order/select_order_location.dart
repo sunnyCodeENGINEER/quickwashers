@@ -18,6 +18,14 @@ class _SelectOrderLocationState extends State<SelectOrderLocation> {
   DateTime? selectedDateTime;
   DateTime? deliveryDateTime;
 
+  @override
+  void initState() {
+    super.initState();
+
+    selectedDateTime = DateTime.now();
+    deliveryDateTime = selectedDateTime?.add(const Duration(days: 1));
+  }
+
   void _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -70,6 +78,9 @@ class _SelectOrderLocationState extends State<SelectOrderLocation> {
               .add(const Duration(hours: 24))
               .toUtc()
               .toIso8601String();
+
+          dropOffTime =
+              combinedDateTime.add(const Duration(days: 1)).toIso8601String();
         });
       }
     }
@@ -331,9 +342,6 @@ class _SelectOrderLocationState extends State<SelectOrderLocation> {
                       )
                     ],
                   ),
-                  // const LocationDropDownMenu(
-                  //   home: false,
-                  // )
                 ],
               ),
             ],

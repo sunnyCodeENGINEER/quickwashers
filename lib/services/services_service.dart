@@ -107,17 +107,30 @@ class ServicesService {
     final body = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
-      userCart = CartModel.fromJson({
-        'items': body[0]['items'],
-        'totalAmount': body[0]['totalAmount'],
-        'createdAt': body[0]['createdAt'],
-        'updatedAt': body[0]['updatedAt'],
-      });
-      return {
-        'successful': true,
-        'items': body[0]['items'],
-        'totalAmount': body[0]['totalAmount'],
-      };
+      try {
+        userCart = CartModel.fromJson({
+          'items': body[0]['items'],
+          'totalAmount': body[0]['totalAmount'],
+          'createdAt': body[0]['createdAt'],
+          'updatedAt': body[0]['updatedAt'],
+        });
+
+        return {
+          'successful': true,
+          'items': body[0]['items'],
+          'totalAmount': body[0]['totalAmount'],
+        };
+      } catch (e) {
+        print(e);
+        return {
+          'successful': true,
+        };
+      }
+      // return {
+      //   'successful': true,
+      //   'items': body[0]['items'],
+      //   'totalAmount': body[0]['totalAmount'],
+      // };
     } else {
       return {
         'successful': false,
@@ -249,7 +262,9 @@ class ServicesService {
   }
 
   Future<List<OrderModel>> retrieveOrders() async {
-    final url = Uri.parse('${baseUrl}api/orders/');
+    final url = Uri.parse('${baseUrl}api/orders/${currentUser.id}');
+
+    print(url);
 
     final response = await http.get(
       url,

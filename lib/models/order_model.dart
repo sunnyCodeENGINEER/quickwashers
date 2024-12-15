@@ -32,17 +32,28 @@ class OrderModel {
     final productsMap = <String, int>{};
     final List<MyOrderProductInfo> productsInfo = [];
 
+    print(json['products'].runtimeType);
+
     for (var item in json['products']) {
-      productsMap[item['product']['_id']] = item['quantity'];
+      // productsMap[item['product']['_id']] = item['quantity'];
+      productsMap[item['product'] ?? '123'] = item['quantity'];
+      // final productInfo = MyOrderProductInfo(
+      //     id: item['product']['_id'],
+      //     name: item['product']['name'],
+      //     price: item['product']['price'],
+      //     service: item['product']['service'],
+      //     quantity: item['quantity'] ?? 0);
+
       final productInfo = MyOrderProductInfo(
-          id: item['product']['_id'],
-          name: item['product']['name'],
-          price: item['product']['price'],
-          service: item['product']['service'],
+          id: item['product'] ?? '',
+          name: item['product'] ?? '',
+          price: 0.0,
+          service: item['product'] ?? '',
           quantity: item['quantity'] ?? 0);
 
       productsInfo.add(productInfo);
     }
+    print('here');
 
     return OrderModel(
         products: productsMap,
@@ -51,7 +62,8 @@ class OrderModel {
         paymentStatus: json['paymentStatus'],
         payment: json['payment'] ??
             'unpaid', // If payment field is missing, default to 'unpaid'
-        location: json['location']['name'],
+        // location: json['location']['name']
+        location: json['location'] ?? '',
         deliveryTime: json['deliveryTime'] ?? '',
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],

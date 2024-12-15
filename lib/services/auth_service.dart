@@ -89,7 +89,11 @@ class AuthService {
       // Save token in shared preferences for persistent login
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', body['token']);
+      await prefs.setString('id', body['user']['id']);
+      currentUser.id = body['user']['id'];
       storeData();
+      print('\n\n================');
+      print(body['user']['id']);
       return {
         'successful': true,
         'user': body['user'],
@@ -149,11 +153,11 @@ class AuthService {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       return UserDetail(
-        name: data['name'],
-        number: data['phone'],
-        email: data['email'],
-        token: currentUser.token,
-      );
+          name: data['name'],
+          number: data['phone'],
+          email: data['email'],
+          token: currentUser.token,
+          id: currentUser.id);
     } else {
       throw Exception('Failed to load user profile');
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickwashers/Profile%20Page/pages/saved_addresses_page.dart';
 import 'package:quickwashers/Profile%20Page/pages/terms_and_conditions_page.dart';
 import 'package:quickwashers/Settings%20Page/settings_page.dart';
 import 'package:quickwashers/Splash%20Screen/splashscreen.dart';
@@ -31,7 +32,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       await user.storeData();
       return user;
     } else {
-      return UserDetail(name: '', number: '', email: '', token: '');
+      return UserDetail(name: '', number: '', email: '', token: '', id: '');
     }
   }
 
@@ -104,18 +105,28 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           vertical: 20, horizontal: 40),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Image.asset('assets/images/SAVED ADDRESS.png'),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              const Text(
-                                'Saved Addresses',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              )
-                            ],
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SavedAddressesPage()));
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset('assets/images/SAVED ADDRESS.png'),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const Text(
+                                  'Saved Addresses',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                )
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 50,
