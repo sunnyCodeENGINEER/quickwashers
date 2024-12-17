@@ -26,13 +26,18 @@ class OfferPage extends StatelessWidget {
               decoration: InputDecoration(
                 prefixIconColor: Colors.grey,
                 filled: true,
-                fillColor: Colors.grey.withOpacity(0.3),
+                fillColor:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.125),
                 prefixIcon: const Icon(Icons.search),
                 hintText: 'Search Offer',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(40.0),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 176, 176, 176), width: 2.0),
+                  borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.2),
+                      width: 2.0),
                 ),
               ),
             ),
@@ -77,13 +82,6 @@ class OfferPage extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        // SizedBox(
-                        //   height: 180,
-                        //   child: Image.asset(
-                        //     'assets/images/Laundry.png',
-                        //     fit: BoxFit.fitHeight,
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
@@ -118,24 +116,25 @@ class OfferPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer), label: 'Offers'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.local_offer), label: 'Offers'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      //   ],
+      // ),
     );
   }
 
   Widget _buildOfferTile() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.3),
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
-          BoxShadow(offset: const Offset(2, 2), color: Colors.grey.shade200)
+          BoxShadow(
+              offset: const Offset(2, 2), color: Colors.black.withOpacity(0.3))
         ],
       ),
       child: Padding(

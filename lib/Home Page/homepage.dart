@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        // backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           SizedBox(
@@ -72,6 +71,7 @@ class _HomePageState extends State<HomePage> {
               icon: Image.asset(
                 'assets/images/cart Icon.png',
                 fit: BoxFit.fill,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
@@ -80,155 +80,113 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                prefixIconColor: const Color.fromARGB(255, 55, 55, 55),
-                filled: true,
-                fillColor: Colors.grey.withOpacity(0.3),
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Search Laundry Service',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 224, 222, 222), width: 2.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  prefixIconColor: const Color.fromARGB(255, 55, 55, 55),
+                  filled: true,
+                  fillColor: Colors.grey.withOpacity(0.2),
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: 'Search Laundry Service',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 224, 222, 222), width: 2.0),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
-            const Text('Laundry Services',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const Text('Select your preferred service(s)',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey)),
-            const SizedBox(height: 10),
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 1,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              children: [
-                // GestureDetector(
-                //     onTap: () {
-                //       Navigator.push(
-                //           (context),
-                //           MaterialPageRoute(
-                //               builder: (context) => ServicesPage()));
-                //     },
-                //     child: const ServiceTile(
-                //         title: 'Wash & Fold',
-                //         image: 'assets/images/Laundry.png')),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //         (context),
-                //         MaterialPageRoute(
-                //             builder: (context) => ServicesPage()));
-                //   },
-                //   child: const ServiceTile(
-                //       title: 'Iron & Fold',
-                //       image: 'assets/images/Ironing board.png'),
-                // ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //         (context),
-                //         MaterialPageRoute(
-                //             builder: (context) => ServicesPage()));
-                //   },
-                //   child: const ServiceTile(
-                //       title: 'Dry Cleaning',
-                //       image: 'assets/images/Dry cleaning.png'),
-                // ),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //         (context),
-                //         MaterialPageRoute(
-                //             builder: (context) => ServicesPage()));
-                //   },
-                //   child: const ServiceTile(
-                //       title: 'Household Cleaning',
-                //       image: 'assets/images/House cleaning.png'),
-                // ),
-
-                FutureBuilder<List<ServiceModel>>(
-                  future: futureServices,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text('No services available'));
-                    } else {
-                      final services = snapshot.data!;
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // 2 columns
-                          // childAspectRatio: 3 / 2, // Aspect ratio for each item
-                          crossAxisSpacing: 10, // Space between columns
-                          mainAxisSpacing: 10, // Space between rows
-                        ),
-                        itemCount: services.length,
-                        itemBuilder: (context, index) {
-                          final service = services[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ServicesPage(
-                                    serviceId: service.id,
+              const SizedBox(height: 15),
+              const Text('Laundry Services',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Select your preferred service(s)',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey)),
+              const SizedBox(height: 10),
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 1,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                children: [
+                  FutureBuilder<List<ServiceModel>>(
+                    future: futureServices,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                            child: Text('No services available'));
+                      } else {
+                        final services = snapshot.data!;
+                        return GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: services.length,
+                          itemBuilder: (context, index) {
+                            final service = services[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ServicesPage(
+                                      serviceId: service.id,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            child: ServiceTile(
-                              title: service.name,
-                              image:
-                                  'assets/images/House cleaning.png', // Dynamically provide an image
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Our Offers',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                TextButton(
-                  onPressed: () {
-                    // Navigate to OffersPage
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const OfferPage()),
-                    );
-                  },
-                  child: const Text(
-                    'View All',
-                    style: TextStyle(color: Colors.blue),
+                                );
+                              },
+                              child: ServiceTile(
+                                title: service.name,
+                                image:
+                                    'assets/images/House cleaning.png', // Dynamically provide an image
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
                   ),
-                )
-                // Text('View All', style: TextStyle(color: Colors.blue)),
-              ],
-            ),
-            const SizedBox(height: 10),
-            const OurOffersTile(),
-          ],
+                ],
+              ),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Our Offers',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to OffersPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const OfferPage()),
+                      );
+                    },
+                    child: const Text(
+                      'View All',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  )
+                  // Text('View All', style: TextStyle(color: Colors.blue)),
+                ],
+              ),
+              const SizedBox(height: 10),
+              const OurOffersTile(),
+            ],
+          ),
         ),
       ),
     );
@@ -307,7 +265,7 @@ class ServiceTile extends StatelessWidget {
       // padding: const EdgeInsets.all(20),
       height: 100,
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Center(

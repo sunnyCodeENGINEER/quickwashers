@@ -154,7 +154,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                   decoration: InputDecoration(
                     prefixIconColor: Colors.grey,
                     filled: true,
-                    fillColor: Colors.grey[200],
+                    fillColor: Theme.of(context).colorScheme.surface,
                     prefixIcon: IconButton(
                       onPressed: () {
                         _searchLocation(searchController.text);
@@ -256,7 +256,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

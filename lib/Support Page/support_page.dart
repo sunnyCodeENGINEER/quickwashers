@@ -28,11 +28,14 @@ class _SupportPageState extends State<SupportPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 60,
+            ),
             Center(
               child: Image.asset('assets/images/LOGO 2.png'),
             ),
             const SizedBox(
-              height: 40,
+              height: 60,
             ),
             const Text(
               'We are ready to solve all your queries ',
@@ -40,7 +43,7 @@ class _SupportPageState extends State<SupportPage> {
             ),
             const Text('Will get back to you soon'),
             const SizedBox(
-              height: 20,
+              height: 60,
             ),
             Row(
               children: [
@@ -59,8 +62,6 @@ class _SupportPageState extends State<SupportPage> {
 
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-                        // prefixIcon: const Icon(Icons.phone),
-                        // hintText: 'GH +233 55 369 6305',
                         label: const Text('Phone Number'),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
@@ -108,13 +109,17 @@ class _SupportPageState extends State<SupportPage> {
             const Spacer(),
             Center(
               child: SizedBox(
-                width: 160,
+                width: 300,
+                height: 60,
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

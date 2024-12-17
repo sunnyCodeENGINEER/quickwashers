@@ -37,7 +37,18 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
         location: 'location',
         totalAmount: widget.total); // Await the Future
     url = response['msg']!;
-    print(url);
+
+    if (response['successful'] == 'false') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("There was an error placing your order."),
+          duration: Duration(seconds: 2), // How long the SnackBar appears
+          behavior: SnackBarBehavior.floating, // Makes it float above UI
+          backgroundColor: Colors.black87,
+        ),
+      );
+    }
+
     isReady = true;
   }
 
@@ -98,7 +109,7 @@ class _SelectPaymentMethodScreenState extends State<SelectPaymentMethodScreen> {
                               elevation: 5, foregroundColor: Colors.blue),
                           onPressed: () {
                             handleResponse();
-                            
+
                             if (!isReady) return;
 
                             if (paymentMethod == 'card') {

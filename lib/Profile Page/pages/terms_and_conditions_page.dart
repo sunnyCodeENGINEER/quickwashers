@@ -28,11 +28,14 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(
+              height: 60,
+            ),
             Center(
               child: Image.asset('assets/images/LOGO 2.png'),
             ),
             const SizedBox(
-              height: 40,
+              height: 60,
             ),
             const Text(
               'Terms of Use',

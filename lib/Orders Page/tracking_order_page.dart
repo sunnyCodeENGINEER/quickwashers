@@ -46,11 +46,13 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.all(40),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                    offset: Offset(5, 5), color: Colors.grey, blurRadius: 20)
+                    offset: Offset(5, 5),
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 20)
               ],
             ),
             child: Column(
@@ -179,7 +181,8 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         ),
                         Text(
                           'Confirmed on ${formatDate(widget.order.createdAt)}',
-                          style: const TextStyle(color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                         const SizedBox(
                           height: 12,
@@ -187,11 +190,11 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         const Text(
                           'Pickup Arranged',
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                              fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         const Text(
                           'Make Your Laundry Ready To Pick',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                         const SizedBox(
                           height: 12,
@@ -203,7 +206,7 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         ),
                         const Text(
                           'Your Laundry Task Is In Progress',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                         const SizedBox(
                           height: 12,
@@ -215,7 +218,7 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         ),
                         const Text(
                           'Your Laundry Is Out For Delivery',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                         const SizedBox(
                           height: 12,
@@ -227,7 +230,7 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         ),
                         const Text(
                           'Your Laundry Has Been Delivered',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                       ],
                     )
@@ -258,15 +261,16 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                   children: [
                     Text(
                       'GHs ${widget.order.totalAmount} | ${widget.order.payment == 'unpaid' ? 'COD' : 'MOMO'}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.surface),
                     ),
                     const Spacer(),
                     Container(
                       height: 60,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: const Row(
@@ -299,4 +303,3 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
     );
   }
 }
-

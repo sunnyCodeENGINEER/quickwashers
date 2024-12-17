@@ -10,6 +10,10 @@ ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
     bodyMedium: TextStyle(color: Colors.black),
   ),
+  colorScheme: const ColorScheme.light(
+    surface: Colors.white,
+    onSurface: Colors.black,
+  ),
 );
 
 ThemeData darkTheme = ThemeData(

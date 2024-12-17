@@ -97,14 +97,14 @@ class _MyOrderTileState extends State<MyOrderTile> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 10,
                 offset: const Offset(3, 3)),
             BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 10,
                 offset: const Offset(-3, -3))
           ]),

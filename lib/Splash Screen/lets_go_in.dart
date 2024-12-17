@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quickwashers/Login%20PAge/loginpage.dart';
 import 'package:quickwashers/SignUp%20Page/signuppage.dart';
@@ -15,13 +17,17 @@ class LetsGoIn extends StatefulWidget {
 }
 
 class _LetsGoInState extends State<LetsGoIn> {
+  String imagePath = 'assets/images/Laundry detergent.png';
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Timer(const Duration(seconds: 3), () {
-    //   widget.imagePath = 'assets/images/Washing.png';
-    // });
+    Timer(const Duration(seconds: 5), () {
+      setState(() {
+        imagePath = 'assets/images/Washing.png';
+      });
+    });
   }
 
   @override
@@ -31,7 +37,9 @@ class _LetsGoInState extends State<LetsGoIn> {
         child: Column(
           children: [
             const Spacer(),
-            const Text('Let\'s get you in...'),
+            const Text('Let\'s get you in...',
+                style:
+                    const TextStyle(fontWeight: FontWeight.w900, fontSize: 30)),
             const Spacer(),
             Container(
               padding: const EdgeInsets.all(5),
@@ -47,17 +55,20 @@ class _LetsGoInState extends State<LetsGoIn> {
               // child: Image.asset('assets/images/Laundry detergent.png')
             ),
             const Spacer(),
-            const CustomLetsGoButton(
-              backgroundColor: Colors.black,
-              foregroundColor: Colors.white,
+            CustomLetsGoButton(
+              backgroundColor: Theme.of(context).colorScheme.onSurface,
+              foregroundColor: Theme.of(context).colorScheme.surface,
               label: 'Login',
-              destination: LoginPage(),
+              destination: const LoginPage(),
             ),
-            const CustomLetsGoButton(
-              foregroundColor: Colors.white,
-              backgroundColor: Color.fromARGB(255, 0, 153, 248),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomLetsGoButton(
+              foregroundColor: Theme.of(context).colorScheme.surface,
+              backgroundColor: const Color.fromARGB(255, 0, 153, 248),
               label: 'Signup',
-              destination: SignUpPage(),
+              destination: const SignUpPage(),
             ),
             const Spacer(),
           ],
@@ -83,10 +94,8 @@ class CustomLetsGoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AuthService authService = AuthService();
     return ElevatedButton(
       onPressed: () {
-        // print(authService.getToken().toString());
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => destination),
@@ -97,7 +106,13 @@ class CustomLetsGoButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
       ),
-      child: SizedBox(width: 206, child: Center(child: Text(label))),
+      child: SizedBox(
+          width: 206,
+          child: Center(
+              child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ))),
     );
   }
 }

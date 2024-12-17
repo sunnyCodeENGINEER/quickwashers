@@ -39,8 +39,6 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (result['successful']) {
-      // Navigate to OTP page
-      // currentUser.token = result['token'];
       currentUser.retrieveData();
       Navigator.pushAndRemoveUntil(
         (context),
@@ -99,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: const Row(
           children: [
@@ -114,154 +112,157 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            SizedBox(
-              height: 192,
-              child: Center(
-                child: Image.asset('assets/images/LOGIN PAGE IMAGE.png'),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextField(
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
-                  hintText: 'GH +233 55 369 6305',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 192,
+                child: Center(
+                  child: Image.asset('assets/images/LOGIN PAGE IMAGE.png'),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10)),
-              child: TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: SizedBox(
-                      width: 18,
-                      child: Image.asset(
-                        'assets/images/circle-password.png',
-                        width: 20,
-                        color: Colors.blue,
-                      )),
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                const Spacer(),
-                const Text(
-                  'Forgot',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                TextButton(
-                    onPressed: () {
-                      // forgotPassword();
-                      Navigator.push(
-                          (context),
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordPage()));
-                    },
-                    child: const Text(
-                      'Password?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ))
-              ],
-            ),
-            const SizedBox(height: 20),
-            isLoading
-                ? const CircularProgressIndicator(
-                    color: Colors.blue,
-                  )
-                : SizedBox(
-                    width: 160,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        login();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(color: Colors.white),
-                      ),
+              const SizedBox(height: 20),
+              const SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextField(
+                  controller: phoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.phone),
+                    hintText: 'GH +233 55 369 6305',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-            const SizedBox(height: 20),
-            const Text('Or use socials', style: TextStyle(color: Colors.grey)),
-            const SizedBox(height: 10),
-            // CustomSocialButton('Facebook', Colors.blue),
-            const CustomSocialButton(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.white,
-                label: "assets/images/GOOGLE BUTTON.png",
-                destination: Placeholder()),
-            const CustomSocialButton(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.white,
-                label: "assets/images/APPLE BUTTON.png",
-                destination: Placeholder()),
-            const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SignUpPage()),
-                );
-              },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'New to us?',
-                    style: TextStyle(
-                        color: Colors.grey, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    ' REGISTER',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-
-            if (errorMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  errorMessage,
-                  style: const TextStyle(color: Colors.red),
                 ),
               ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    prefixIcon: SizedBox(
+                        width: 18,
+                        child: Image.asset(
+                          'assets/images/circle-password.png',
+                          width: 20,
+                          color: Colors.blue,
+                        )),
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  const Spacer(),
+                  const Text(
+                    'Forgot',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        // forgotPassword();
+                        Navigator.push(
+                            (context),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ForgotPasswordPage()));
+                      },
+                      child: const Text(
+                        'Password?',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 20),
+              isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.blue,
+                    )
+                  : SizedBox(
+                      width: 160,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          login();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+              const SizedBox(height: 20),
+              const Text('Or use socials',
+                  style: TextStyle(color: Colors.grey)),
+              const SizedBox(height: 10),
+              // CustomSocialButton('Facebook', Colors.blue),
+              const CustomSocialButton(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  label: "assets/images/GOOGLE BUTTON.png",
+                  destination: Placeholder()),
+              const CustomSocialButton(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  label: "assets/images/APPLE BUTTON.png",
+                  destination: Placeholder()),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignUpPage()),
+                  );
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'New to us?',
+                      style: TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      ' REGISTER',
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              if (errorMessage.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

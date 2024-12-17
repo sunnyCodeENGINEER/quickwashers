@@ -34,12 +34,12 @@ class _CurrentOrderDetailsState extends State<CurrentOrderDetails> {
               height: 200,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(5, 5),
+                    color: Colors.black.withOpacity(0.3),
+                    offset: const Offset(5, 5),
                     blurRadius: 20,
                   )
                 ],
@@ -87,12 +87,12 @@ class _CurrentOrderDetailsState extends State<CurrentOrderDetails> {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(5, 5),
+                    color: Colors.black.withOpacity(0.3),
+                    offset: const Offset(5, 5),
                     blurRadius: 20,
                   )
                 ],
@@ -106,12 +106,12 @@ class _CurrentOrderDetailsState extends State<CurrentOrderDetails> {
               width: 400,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(5, 5),
+                    color: Colors.black.withOpacity(0.3),
+                    offset: const Offset(5, 5),
                     blurRadius: 20,
                   )
                 ],
@@ -150,31 +150,37 @@ class _CurrentOrderDetailsState extends State<CurrentOrderDetails> {
                 children: [
                   Text(
                     'Ghs ${widget.order.totalAmount} | ${widget.order.payment == 'unpaid' ? 'COD' : 'MOMO'}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Row(
-                      children: [
-                        Text(
-                          'Close',
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
-                        ),
-                        RotatedBox(
-                          quarterTurns: 3,
-                          child: Icon(
-                            Icons.chevron_left_rounded,
-                            color: Colors.blue,
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Row(
+                        children: [
+                          Text(
+                            'Close',
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
-                        )
-                      ],
+                          RotatedBox(
+                            quarterTurns: 3,
+                            child: Icon(
+                              Icons.chevron_left_rounded,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
