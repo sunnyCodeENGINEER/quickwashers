@@ -238,7 +238,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                               // When product data is successfully fetched
                               final item = snapshot.data!;
                               return Text(
-                                  'GHs ${item['totalAmount'].toStringAsFixed(2)}');
+                                  'GHs ${item['totalAmount'] ?? 0.toStringAsFixed(2)}');
                             }
                           })
                     ],
